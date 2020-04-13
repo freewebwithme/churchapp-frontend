@@ -1,68 +1,54 @@
+import 'dart:io';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:flutter/material.dart';
 
-/// Save for later use
-String uuidFromObject(Object object) {
-  if (object is Map<String, Object>) {
-    final String typeName = object['__typename'] as String;
-    final String id = object['id'].toString();
-    if (typeName != null && id != null) {
-      return <String>[typeName, id].join('/');
+  String get host {
+    if (Platform.isAndroid) {
+      return '192.168.1.10';
+    } else {
+      return 'localhost';
     }
   }
 
-  return null;
-}
+  final String HTTP_ENDPOINT = 'http://$host:4000/api';
+  final String WS_ENDPOINT = 'ws://$host:4000/socket';
+/// Wraps the root application with the `graphql_flutter` client.
+/// we use the cache for all state management.
+class ClientProvider extends StatelessWidget {
+  ClientProvider({Key key, this.child}) : super(key: key);
 
-/// Save for later use
-final OptimisticCache cache = OptimisticCache(
-  dataIdFromObject: uuidFromObject,
-);
+  final Widget child;
 
-ValueNotifier<GraphQLClient> clientFor({
-  @required String uri,
-  String subscriptionUri,
-}) {
-  Link link = HttpLink(uri: uri);
-  if (subscriptionUri != null) {
+
+  @override
+  Widget build(BuildContext context) {
+
+    Link link = HttpLink(uri: HTTP_ENDPOINT);
     final WebSocketLink websocketLink = WebSocketLink(
-      url: subscriptionUri,
+      url: WS_ENDPOINT,
       config: SocketClientConfig(
         autoReconnect: true,
         inactivityTimeout: Duration(seconds: 30),
       ),
     );
-
     link = link.concat(websocketLink);
-  }
 
-  return ValueNotifier<GraphQLClient>(
-    GraphQLClient(
-      cache: InMemoryCache(),
-      link: link,
-    ),
-  );
-}
+    final NormalizedInMemoryCache cache = NormalizedInMemoryCache(
+      dataIdFromObject: typenameDataIdFromObject,
+    );
 
-/// Wraps the root application with the `graphql_flutter` client.
-/// we use the cache for all state management.
-class ClientProvider extends StatelessWidget {
-  ClientProvider({
-    @required this.child,
-    @required String uri,
-    String subscriptionUri,
-  }) : client = clientFor(
-          uri: uri,
-          subscriptionUri: subscriptionUri,
-        );
-  final Widget child;
-  final ValueNotifier<GraphQLClient> client;
+    final ValueNotifier<GraphQLClient> client = ValueNotifier<GraphQLClient>(
+      GraphQLClient(
+        cache: cache,
+        link: link,
+      ),
+    );
 
-  @override
-  Widget build(BuildContext context) {
     return GraphQLProvider(
       client: client,
-      child: child,
+      child: CacheProvider(
+        child: child,
+      ),
     );
   }
 }

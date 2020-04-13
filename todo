@@ -1,5 +1,13 @@
-2020-4-8
-  - Import backend code to flutter project.
-  - push codes to github
-  - Fix overflow pixels in home screen.
-  - Work on Sermon tabs.
+[TODO]
+ [Backend]
+   - Call Search List api at some point to get most recent videos.
+   - Define route for callback from Youtube Pubsub.
+   - Working on Playlist items.
+
+ [Frontend]
+   - Call get_most_recent_videos from backend database.
+
+
+ [Youtube API]
+   - Use Pubsub to get notified when video uploads.
+ 

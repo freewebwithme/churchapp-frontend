@@ -1,41 +1,43 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'screens/home_screen.dart';
-import 'screens/intro_screen.dart';
+import 'routes/home_route.dart';
+import 'routes/intro_route.dart';
 import './client_provider.dart';
+import './routes/video_detail_route.dart';
+import './routes/sermon_video_route.dart';
+import './queries/playlistitems_query.dart';
 
-void main() => runApp(ChurchApp());
-
-String get host {
-  if (Platform.isAndroid) {
-    return '192.168.1.10';
-  } else {
-    return 'localhost';
-  }
+void main() {
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+    //systemNavigationBarColor: Colors.green,
+    statusBarColor: Colors.green,
+  ));
+  runApp(ChurchApp());
 }
-
-final String HTTP_ENDPOINT = 'http://$host:4000/api';
-final String WS_ENDPOINT = 'ws://$host:4000/socket';
 
 class ChurchApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return ClientProvider(
-      uri: HTTP_ENDPOINT,
-      subscriptionUri: WS_ENDPOINT,
       child: MaterialApp(
-        title: '베리트 개혁 장로 교회',
-        debugShowCheckedModeBanner: false,
-        theme: ThemeData(
-          primarySwatch: Colors.green,
-          textTheme:
-              GoogleFonts.nanumMyeongjoTextTheme(Theme.of(context).textTheme),
-        ),
-        home: MainPage(title: '베리트 개혁 장로 교회'),
-      ),
+          title: '베리트 개혁 장로 교회',
+          debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.green,
+            textTheme:
+                GoogleFonts.nanumMyeongjoTextTheme(Theme.of(context).textTheme),
+          ),
+          initialRoute: '/',
+          routes: {
+            '/': (context) => MainPage(title: '베리트 개혁 장로 교회'),
+            '/video-detail': (context) => VideoDetailRoute(),
+            '/sermons': (context) => SermonVideoRoute(),
+            '/playlist-detail': (context) => PlaylistitemsQuery(),
+          }),
     );
   }
 }
@@ -60,8 +62,9 @@ class _MainPageState extends State<MainPage> {
   }
 
   final List<Widget> _screens = [
-    HomeScreen(),
-    IntroScreen()
+    HomeRoute(),
+    IntroRoute(),
+    SermonVideoRoute(),
   ];
 
   @override
@@ -101,11 +104,11 @@ class _MainPageState extends State<MainPage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onTapped,
-        backgroundColor: colorScheme.primary,
+        backgroundColor: colorScheme.onPrimary,
         selectedFontSize: textTheme.caption.fontSize,
         unselectedFontSize: textTheme.caption.fontSize,
-        unselectedItemColor: colorScheme.onPrimary.withOpacity(0.38),
-        selectedItemColor: colorScheme.onPrimary,
+        unselectedItemColor: Colors.black38.withOpacity(0.38),
+        selectedItemColor: colorScheme.primary,
         type: BottomNavigationBarType.fixed,
       ),
       body: Center(

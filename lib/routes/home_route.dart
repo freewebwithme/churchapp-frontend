@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import '../widgets/carousel.dart';
 import '../widgets/news_card.dart';
 import '../widgets/section_title.dart';
-import '../queries/home_query.dart';
+import '../queries/video_query.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeRoute extends StatefulWidget {
   @override
-  _HomeScreenState createState() => _HomeScreenState();
+  _HomeRouteState createState() => _HomeRouteState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomeRouteState extends State<HomeRoute> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -22,7 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
         ),
         SectionTitle(title: "최신 설교"),
         Expanded(
-          child: HomeQuery(),
+          child: VideoQuery(count: 2),
         ),
       ],
     );
