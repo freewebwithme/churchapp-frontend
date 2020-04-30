@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../routes/video_info_argument.dart';
+import '../model/video.dart';
 
 class VideoCard extends StatelessWidget {
   VideoCard({
@@ -26,7 +26,7 @@ class VideoCard extends StatelessWidget {
           Navigator.pushNamed(
             context,
             '/video-detail',
-            arguments: VideoInfoArgument(
+            arguments: Video(
                 title, description, date, thumbnailUrl, videoId, channelTitle),
           );
         },

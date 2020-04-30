@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import './video_info_argument.dart';
+import '../model/video.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class VideoDetailRoute extends StatefulWidget {
@@ -28,7 +28,7 @@ class _VideoDetailRouteState extends State<VideoDetailRoute> {
 
   @override
   Widget build(BuildContext context) {
-    final VideoInfoArgument args = ModalRoute.of(context).settings.arguments;
+    final Video args = ModalRoute.of(context).settings.arguments;
 
     _controller = YoutubePlayerController(
       initialVideoId: args.videoId,
@@ -38,13 +38,11 @@ class _VideoDetailRouteState extends State<VideoDetailRoute> {
         disableDragSeek: false,
         loop: false,
         isLive: false,
-        forceHideAnnotation: true,
+        forceHideAnnotation: false,
         forceHD: false,
         enableCaption: true,
       ),
     );
-    print("Printing description: ${args.description}");
-    print("Printing description: ${args.title}");
     return Scaffold(
       appBar: AppBar(
         title: Text(

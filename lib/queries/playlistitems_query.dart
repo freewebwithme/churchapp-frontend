@@ -9,8 +9,8 @@ class PlaylistitemsQuery extends StatefulWidget {
 
 class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
   String nextPageToken = "";
-  final String PLAYLISTITEMS = """
 
+  final String PLAYLISTITEMS = """
   query(\$playlistId: String, \$nextPageToken: String) {
     playlistItems(playlistId: \$playlistId, nextPageToken: \$nextPageToken) {
     nextPageToken
@@ -51,29 +51,27 @@ class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
               return Text(result.exception.toString());
             }
             if (result.loading) {
-              return Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  CircularProgressIndicator(),
-                ],
+              return Center(
+                child: CircularProgressIndicator(),
               );
             }
 
             List items = result.data['playlistItems']['items'];
+
             String token = result.data['playlistItems']['nextPageToken'];
             token = token ?? "";
 
             FetchMoreOptions opts = FetchMoreOptions(
                 variables: {'nextPageToken': token},
                 updateQuery: (previousResultData, fetchMoreResultData) {
-                  final List<dynamic> items = [
+                  final List<dynamic> newItems = [
                     ...previousResultData['playlistItems']['items']
                         as List<dynamic>,
                     ...fetchMoreResultData['playlistItems']['items']
                         as List<dynamic>
                   ];
 
-                  fetchMoreResultData['playlistItems']['items'] = items;
+                  fetchMoreResultData['playlistItems']['items'] = newItems;
                   return fetchMoreResultData;
                 });
 

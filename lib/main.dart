@@ -3,14 +3,20 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:graphql_flutter/graphql_flutter.dart';
 import 'routes/home_route.dart';
 import 'routes/intro_route.dart';
 import './client_provider.dart';
 import './routes/video_detail_route.dart';
 import './routes/sermon_video_route.dart';
 import './queries/playlistitems_query.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import './queries/read_queries.dart' as queries;
+import './model/church.dart';
+import './model/video.dart';
 
-void main() {
+void main() async {
+  await DotEnv().load('.env');
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //systemNavigationBarColor: Colors.green,
     statusBarColor: Colors.green,
@@ -20,11 +26,11 @@ void main() {
 
 class ChurchApp extends StatelessWidget {
   // This widget is the root of your application.
+
   @override
   Widget build(BuildContext context) {
     return ClientProvider(
       child: MaterialApp(
-          title: '베리트 개혁 장로 교회',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
             primarySwatch: Colors.green,
@@ -33,7 +39,7 @@ class ChurchApp extends StatelessWidget {
           ),
           initialRoute: '/',
           routes: {
-            '/': (context) => MainPage(title: '베리트 개혁 장로 교회'),
+            '/': (context) => MainPage(),
             '/video-detail': (context) => VideoDetailRoute(),
             '/sermons': (context) => SermonVideoRoute(),
             '/playlist-detail': (context) => PlaylistitemsQuery(),
@@ -43,9 +49,7 @@ class ChurchApp extends StatelessWidget {
 }
 
 class MainPage extends StatefulWidget {
-  MainPage({Key key, this.title}) : super(key: key);
-
-  final String title;
+  MainPage({Key key}) : super(key: key);
 
   @override
   _MainPageState createState() => _MainPageState();
@@ -53,6 +57,8 @@ class MainPage extends StatefulWidget {
 
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
+
+  Future<Church> church;
 
   void _onTapped(int index) {
     print("Selected $index");
@@ -67,6 +73,8 @@ class _MainPageState extends State<MainPage> {
     SermonVideoRoute(),
   ];
 
+  final String churchUUID = DotEnv().env["CHURCH_UUID"];
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
@@ -76,7 +84,7 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text(widget.title, style: GoogleFonts.nanumMyeongjo()),
+        title: Text("Church name", style: GoogleFonts.nanumMyeongjo()),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -112,10 +120,42 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed,
       ),
       body: Center(
-        // Center is a layout widget. It takes a single child and positions it
-        // in the middle of the parent.
-        child: _screens[_selectedIndex],
-      ),
+          // Center is a layout widget. It takes a single child and positions it
+          // in the middle of the parent.
+          child: Query(
+        options: QueryOptions(
+            documentNode: gql(queries.getChurch),
+            fetchPolicy: FetchPolicy.cacheFirst,
+            variables: {
+              'uuid': churchUUID,
+            }),
+        builder: (QueryResult result,
+            {VoidCallback refetch, FetchMore fetchMore}) {
+          if (result.hasException) {
+            return Text("데이터를 불러오는데 실패했습니다. 다시 시도하세요");
+          }
+          if (result.loading) {
+            return CircularProgressIndicator(
+              semanticsLabel: "불러오는 중....",
+            );
+          }
+
+          var churchResult = result.data["getChurch"];
+          List latestVideos = result.data["getChurch"]["latestVideos"];
+          final String churchName = churchResult["name"];
+          final String churchIntro = churchResult["intro"];
+          final String slideImageOne = churchResult["slideImageOne"];
+          final String slideImageTwo = churchResult["slideImageTwo"];
+          final String slideImageThree = churchResult["slideImageThree"];
+          var church = Church();
+          church.setChurch(churchName, churchIntro, slideImageOne,
+              slideImageTwo, slideImageThree);
+
+          print(church.churchName);
+
+          return _screens[_selectedIndex];
+        },
+      )),
     );
   }
 }

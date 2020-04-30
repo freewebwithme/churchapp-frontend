@@ -9,7 +9,7 @@ class VideoQuery extends StatelessWidget {
   }) : super(key: key);
   final int count;
 
-  String mostRecent = """
+  final String mostRecent = """
   query(\$count: Int!) {
     mostRecent(count: \$count) {
       id

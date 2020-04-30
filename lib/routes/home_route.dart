@@ -4,12 +4,7 @@ import '../widgets/news_card.dart';
 import '../widgets/section_title.dart';
 import '../queries/video_query.dart';
 
-class HomeRoute extends StatefulWidget {
-  @override
-  _HomeRouteState createState() => _HomeRouteState();
-}
-
-class _HomeRouteState extends State<HomeRoute> {
+class HomeRoute extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
