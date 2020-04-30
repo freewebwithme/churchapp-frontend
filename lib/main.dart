@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import 'routes/home_route.dart';
 import 'routes/intro_route.dart';
 import './client_provider.dart';
@@ -58,8 +59,6 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  Future<Church> church;
-
   void _onTapped(int index) {
     print("Selected $index");
     setState(() {
@@ -84,7 +83,7 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("Church name", style: GoogleFonts.nanumMyeongjo()),
+        title: Text("베리트 개혁 장로 교회", style: GoogleFonts.nanumMyeongjo()),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -147,13 +146,22 @@ class _MainPageState extends State<MainPage> {
           final String slideImageOne = churchResult["slideImageOne"];
           final String slideImageTwo = churchResult["slideImageTwo"];
           final String slideImageThree = churchResult["slideImageThree"];
-          var church = Church();
-          church.setChurch(churchName, churchIntro, slideImageOne,
-              slideImageTwo, slideImageThree);
 
-          print(church.churchName);
+          print("Printing church info $churchName");
 
-          return _screens[_selectedIndex];
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => Church(
+                    name: churchName,
+                    intro: churchIntro,
+                    slideImageOne: slideImageOne,
+                    slideImageTwo: slideImageTwo,
+                    slideImageThree: slideImageThree),
+              ),
+            ],
+            child: _screens[_selectedIndex],
+          );
         },
       )),
     );

@@ -1,37 +1,27 @@
 import 'package:flutter/foundation.dart';
 
-class Church {
-  static final Church _instance = new Church._internal();
+class Church extends ChangeNotifier {
+  Church({this.name, this.intro, this.slideImageOne, this.slideImageTwo, this.slideImageThree});
+  String name;
+  String intro;
+  String slideImageOne;
+  String slideImageTwo;
+  String slideImageThree;
 
-  factory Church() {
-    return _instance;
-  }
-
-  @protected
-  String _name;
-  @protected
-  String _intro;
-  @protected
-  String _slideImageOne;
-  @protected
-  String _slideImageTwo;
-  @protected
-  String _slideImageThree;
-
-  String get churchName => _name;
-  String get churchIntro => _intro;
-  String get churchSlideImageOne => _slideImageOne;
-  String get churchSlideImageTwo => _slideImageTwo;
-  String get churchSlideImageThree => _slideImageThree;
+  String get churchName => name;
+  String get churchIntro => intro;
+  String get churchSlideImageOne => slideImageOne;
+  String get churchSlideImageTwo => slideImageTwo;
+  String get churchSlideImageThree => slideImageThree;
 
   void setChurch(String name, String intro, String slideImageOne,
       String slideImageTwo, String slideImageThree) {
-    this._name = name;
-    this._intro = intro;
-    this._slideImageOne = slideImageOne;
-    this._slideImageTwo = slideImageTwo;
-    this._slideImageThree = slideImageThree;
-  }
+    this.name = name;
+    this.intro = intro;
+    this.slideImageOne = slideImageOne;
+    this.slideImageTwo = slideImageTwo;
+    this.slideImageThree = slideImageThree;
 
-  Church._internal();
+    notifyListeners();
+  }
 }
