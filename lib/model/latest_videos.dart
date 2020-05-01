@@ -1,7 +1,7 @@
-import 'video.dart';
+import 'package:flutter/widgets.dart';
 
-class LatestVideos {
-  List<Video> latestVideos = [];
+class LatestVideos extends ChangeNotifier {
+  List<dynamic> latestVideos = [];
 
   LatestVideos({this.latestVideos});
 }

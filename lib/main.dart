@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
+import 'model/latest_videos.dart';
 import 'routes/home_route.dart';
 import 'routes/intro_route.dart';
 import './client_provider.dart';
@@ -159,6 +160,9 @@ class _MainPageState extends State<MainPage> {
                     slideImageTwo: slideImageTwo,
                     slideImageThree: slideImageThree),
               ),
+              ChangeNotifierProvider(
+                create: (context) => LatestVideos(latestVideos: latestVideos),
+              )
             ],
             child: _screens[_selectedIndex],
           );
