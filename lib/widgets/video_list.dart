@@ -9,21 +9,28 @@ class VideoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: itemCount,
-      padding: EdgeInsets.all(3.0),
-      itemBuilder: (context, index) {
-        print('printing item index: $index');
-        final item = items[index];
-        return VideoCard(
-          title: item['title'],
-          description: item['description'],
-          date: item['publishedAt'],
-          thumbnailUrl: item['thumbnailUrl'],
-          videoId: item['videoId'],
-          channelTitle: item['channelTitle'],
-        );
-      },
-    );
+    print("Printing latest video items $items");
+    if (itemCount == 0 || items.length == 0) {
+      return Center(
+        child: Text('최신 영상이 없습니다.'),
+      );
+    } else {
+      return ListView.builder(
+        itemCount: itemCount,
+        padding: EdgeInsets.all(3.0),
+        itemBuilder: (context, index) {
+          print('printing item index: $index');
+          final item = items[index];
+          return VideoCard(
+            title: item['title'],
+            description: item['description'],
+            date: item['publishedAt'],
+            thumbnailUrl: item['thumbnailUrl'],
+            videoId: item['videoId'],
+            channelTitle: item['channelTitle'],
+          );
+        },
+      );
+    }
   }
 }
