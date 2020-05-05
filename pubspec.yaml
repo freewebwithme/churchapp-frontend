@@ -33,6 +33,7 @@ dependencies:
   provider: ^4.0.5
   flutter_dotenv: ^2.1.0
   shared_preferences: ^0.5.7
+  cached_network_image: ^2.2.0
 
 dev_dependencies:
   flutter_test:

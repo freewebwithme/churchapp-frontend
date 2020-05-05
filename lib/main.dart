@@ -61,7 +61,6 @@ class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
   void _onTapped(int index) {
-    print("Selected $index");
     setState(() {
       _selectedIndex = index;
     });
@@ -84,7 +83,7 @@ class _MainPageState extends State<MainPage> {
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: Text("베리트 개혁 장로 교회", style: GoogleFonts.nanumMyeongjo()),
+        title: Text("동부 장로 교회", style: GoogleFonts.nanumMyeongjo()),
         centerTitle: true,
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -142,11 +141,11 @@ class _MainPageState extends State<MainPage> {
           List latestVideos = result.data["getChurch"]["latestVideos"];
           final String churchName = churchResult["name"];
           final String churchIntro = churchResult["intro"];
+          final String churchChannelId = churchResult["channelId"];
           final String slideImageOne = churchResult["slideImageOne"];
           final String slideImageTwo = churchResult["slideImageTwo"];
           final String slideImageThree = churchResult["slideImageThree"];
 
-          print("Printing church info $churchName");
 
           return MultiProvider(
             providers: [
@@ -154,6 +153,7 @@ class _MainPageState extends State<MainPage> {
                 create: (context) => Church(
                     name: churchName,
                     intro: churchIntro,
+                    channelId: churchChannelId,
                     slideImageOne: slideImageOne,
                     slideImageTwo: slideImageTwo,
                     slideImageThree: slideImageThree),

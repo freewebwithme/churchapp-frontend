@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import '../queries/video_query.dart';
+import '../widgets/latest_videos_tab.dart';
 import '../queries/playlist_query.dart';
 
 class SermonVideoRoute extends StatelessWidget {
   final List<Tab> sermonTabs = <Tab>[
     Tab(
-      text: "최근 설교",
+      text: "최신 설교",
     ),
     Tab(
-      text: "채널",
+      text: "재생 목록별",
     ),
   ];
 
@@ -31,7 +31,7 @@ class SermonVideoRoute extends StatelessWidget {
         ),
         body: TabBarView(
           children: <Widget>[
-            VideoQuery(count: 25),
+            LatestVideosTab(count: 25),
             PlaylistQuery(),
           ],
         ),

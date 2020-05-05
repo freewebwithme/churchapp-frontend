@@ -1,7 +1,6 @@
 [TODO]
   [Backend]
    - Work on /webhook/youtube controller, check if youtube send a new data to my endpoint.
-   - Extend Church struct(add more field, slider_image_url, intro)
    - Add News struct
   [Frontend]
    - Improve playlitem list using FutureBuilder.

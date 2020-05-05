@@ -3,6 +3,7 @@ const String getChurch = """
     getChurch(uuid: \$uuid) {
       name
       intro
+      channelId
       slideImageOne
       slideImageTwo
       slideImageThree

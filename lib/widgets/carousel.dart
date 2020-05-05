@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:provider/provider.dart';
@@ -20,7 +21,12 @@ class _CarouselForHomeState extends State<CarouselForHome> {
     print("printing $urls");
     for (var url in urls) {
       if (url != null) {
-        _child.add(Image(image: NetworkImage(url), height: 250));
+        //_child.add(Image(image: NetworkImage(url), height: 250));
+        _child.add(CachedNetworkImage(
+          imageUrl: url,
+          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ));
       }
     }
     return _child;

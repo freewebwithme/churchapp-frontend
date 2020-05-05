@@ -5,7 +5,6 @@ import 'package:provider/provider.dart';
 import '../widgets/carousel.dart';
 import '../widgets/news_card.dart';
 import '../widgets/section_title.dart';
-import '../queries/video_query.dart';
 
 class HomeRoute extends StatelessWidget {
   @override
