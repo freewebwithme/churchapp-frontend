@@ -1,10 +1,10 @@
 [TODO]
-  [Backend]
-   - Work on /webhook/youtube controller, check if youtube send a new data to my endpoint.
-   - Add News struct
-  [Frontend]
+   - Work on /webhook/youtube controller, check if youtube send a new data to my endpoint.(DONE)
+   - Add News struct and News detail route
    - Improve playlitem list using FutureBuilder.
+   - Working on IntroRoute (DONE)
+   - Get a donation.
 
   [Youtube API]
-   - Use Pubsub to get notified when video uploads.(Upload video to my channel if it sends to backend server)
- 
+   - Use Pubsub to get notified when video uploads.(Upload video to my channel if it sends to backend server)(DONE)
+   - Display live streaming.

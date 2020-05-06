@@ -9,13 +9,13 @@ class VideoList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print("Printing latest video items $items");
     if (itemCount == 0 || items.length == 0) {
       return Center(
         child: Text('최신 영상이 없습니다.'),
       );
     } else {
       return ListView.builder(
+        shrinkWrap: true,
         itemCount: itemCount,
         padding: EdgeInsets.all(3.0),
         itemBuilder: (context, index) {

@@ -19,3 +19,20 @@ const String getChurch = """
     }
   }
 """;
+
+const String PLAYLISTITEMS = """
+query(\$playlistId: String, \$nextPageToken: String) {
+playlistItems(playlistId: \$playlistId, nextPageToken: \$nextPageToken) {
+nextPageToken
+items {
+id
+title
+description
+videoId
+publishedAt
+thumbnailUrl
+channelTitle
+}
+}
+}
+  """;

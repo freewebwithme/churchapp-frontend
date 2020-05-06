@@ -14,7 +14,7 @@ class HomeRoute extends StatelessWidget {
         CarouselForHome(),
         SectionTitle(title: "교회소식"),
         Container(
-          height: 150,
+          //height: 150,
           child: NewsCard(),
         ),
         SectionTitle(title: "최신 설교"),

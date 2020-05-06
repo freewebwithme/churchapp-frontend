@@ -38,8 +38,8 @@ class _CarouselForHomeState extends State<CarouselForHome> {
       Consumer<Church>(
         builder: (context, church, child) {
           return CarouselSlider(
-            height: 200,
-            viewportFraction: 1.5,
+            height: 280,
+            viewportFraction: 1.4,
             aspectRatio: 4 / 3,
             items: _buildSlideImage(church),
             autoPlay: true,

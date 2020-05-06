@@ -80,12 +80,12 @@ class _MainPageState extends State<MainPage> {
     final textTheme = Theme.of(context).textTheme;
 
     return Scaffold(
-      appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
-        // the App.build method, and use it to set our appbar title.
-        title: Text("동부 장로 교회", style: GoogleFonts.nanumMyeongjo()),
-        centerTitle: true,
-      ),
+      //appBar: AppBar(
+      //  // Here we take the value from the MyHomePage object that was created by
+      //  // the App.build method, and use it to set our appbar title.
+      //  title: Text("동부 장로 교회", style: GoogleFonts.nanumMyeongjo()),
+      //  centerTitle: true,
+      //),
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(

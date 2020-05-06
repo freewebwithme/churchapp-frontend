@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../widgets/video_list.dart';
 import '../routes/playlist_info_argument.dart';
+import './read_queries.dart';
 
 class PlaylistitemsQuery extends StatefulWidget {
   _PlaylistitemsQueryState createState() => _PlaylistitemsQueryState();
@@ -9,23 +10,6 @@ class PlaylistitemsQuery extends StatefulWidget {
 
 class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
   String nextPageToken = "";
-
-  final String PLAYLISTITEMS = """
-  query(\$playlistId: String, \$nextPageToken: String) {
-    playlistItems(playlistId: \$playlistId, nextPageToken: \$nextPageToken) {
-    nextPageToken
-      items {
-        id
-        title
-        description
-        videoId
-        publishedAt
-        thumbnailUrl
-        channelTitle
-      }
-   }
-  }
-  """;
 
   Widget build(BuildContext context) {
     final PlaylistInfoArgument args = ModalRoute.of(context).settings.arguments;

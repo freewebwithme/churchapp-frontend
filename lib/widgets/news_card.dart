@@ -9,6 +9,7 @@ class _NewsCardState extends State<NewsCard> {
   @override
   Widget build(BuildContext conext) {
     return ListView(
+      shrinkWrap: true,
       padding: EdgeInsets.all(3.0),
       children: <Widget>[
         Card(

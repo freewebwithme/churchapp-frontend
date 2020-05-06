@@ -3,7 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import '../widgets/playlist_card.dart';
+import '../widgets/playlist.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class PlaylistQuery extends StatelessWidget {
   final String ALL_PLAYLISTS = """
@@ -43,23 +44,30 @@ class PlaylistQuery extends StatelessWidget {
               child: Text("유투브에 등록된 채널이 없습니다"),
             );
           } else {
-            return GridView.builder(
-              itemCount: playlists.length,
-              padding: const EdgeInsets.all(8),
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 20.0,
-                mainAxisSpacing: 20.0,
-              ),
-              itemBuilder: (context, index) {
-                final playlist = playlists[index];
-                return PlaylistCard(
-                  playlistId: playlist['playlistId'],
-                  playlistTitle: playlist['playlistTitle'],
-                  thumbnailUrl: playlist['thumbnailUrl'],
-                  description: playlist['description'],
-                );
-              },
+            return Column(
+              children: <Widget>[
+                SizedBox(height: 20),
+                Expanded(
+                  child: StaggeredGridView.countBuilder(
+                    staggeredTileBuilder: (index) => StaggeredTile.fit(1),
+                    padding: EdgeInsets.all(10),
+                    crossAxisCount: 2,
+                    itemCount: playlists.length,
+                    crossAxisSpacing: 20,
+                    mainAxisSpacing: 20,
+                    itemBuilder: (context, index) {
+                      final playlist = playlists[index];
+                      return PlaylistCard(
+                        playlistId: playlist['playlistId'],
+                        playlistTitle: playlist['playlistTitle'],
+                        thumbnailUrl: playlist['thumbnailUrl'],
+                        description: playlist['description'],
+                        index: index
+                      );
+                    },
+                  ),
+                ),
+              ],
             );
           }
         },
