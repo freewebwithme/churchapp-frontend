@@ -1,5 +1,6 @@
 [TODO]
    - Work on /webhook/youtube controller, check if youtube send a new data to my endpoint.(DONE)
+   - Work on Live streaming in backend(implement resolver and schema).
    - Add News struct and News detail route
    - Improve playlitem list using FutureBuilder.
    - Working on IntroRoute (DONE)

@@ -11,11 +11,11 @@ import 'routes/intro_route.dart';
 import './client_provider.dart';
 import './routes/video_detail_route.dart';
 import './routes/sermon_video_route.dart';
+import './routes/offering_route.dart';
 import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
 import './model/church.dart';
-import './model/video.dart';
 
 void main() async {
   await DotEnv().load('.env');
@@ -45,6 +45,7 @@ class ChurchApp extends StatelessWidget {
             '/video-detail': (context) => VideoDetailRoute(),
             '/sermons': (context) => SermonVideoRoute(),
             '/playlist-detail': (context) => PlaylistitemsQuery(),
+            '/offering': (context) => OfferingRoute(),
           }),
     );
   }
@@ -70,6 +71,7 @@ class _MainPageState extends State<MainPage> {
     HomeRoute(),
     IntroRoute(),
     SermonVideoRoute(),
+    OfferingRoute(),
   ];
 
   final String churchUUID = DotEnv().env["CHURCH_UUID"];
@@ -146,7 +148,6 @@ class _MainPageState extends State<MainPage> {
           final String slideImageTwo = churchResult["slideImageTwo"];
           final String slideImageThree = churchResult["slideImageThree"];
 
-
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
@@ -160,7 +161,7 @@ class _MainPageState extends State<MainPage> {
               ),
               ChangeNotifierProvider(
                 create: (context) => LatestVideos(latestVideos: latestVideos),
-              )
+              ),
             ],
             child: _screens[_selectedIndex],
           );
