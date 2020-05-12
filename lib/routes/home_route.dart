@@ -12,12 +12,12 @@ class HomeRoute extends StatelessWidget {
     return Column(
       children: <Widget>[
         CarouselForHome(),
-        SectionTitle(title: "교회소식"),
+        SectionTitle(title: "교회소식", link: "/news"),
         Container(
           //height: 150,
           child: NewsCard(),
         ),
-        SectionTitle(title: "최신 설교"),
+        SectionTitle(title: "최신 설교", link: "/sermons"),
         Expanded(child:
             Consumer<LatestVideos>(builder: (context, latestVideos, child) {
           return VideoList(itemCount: 2, items: latestVideos.latestVideos);

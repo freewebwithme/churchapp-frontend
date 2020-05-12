@@ -31,26 +31,76 @@ void main() async {
 class ChurchApp extends StatelessWidget {
   // This widget is the root of your application.
 
+  final String churchUUID = DotEnv().env["CHURCH_UUID"];
+
   @override
   Widget build(BuildContext context) {
     return ClientProvider(
-      child: MaterialApp(
-          debugShowCheckedModeBanner: false,
-          theme: ThemeData(
-            primarySwatch: Colors.green,
-            textTheme:
-                GoogleFonts.nanumMyeongjoTextTheme(Theme.of(context).textTheme),
-          ),
-          initialRoute: '/',
-          routes: {
-            '/': (context) => MainPage(),
-            '/video-detail': (context) => VideoDetailRoute(),
-            '/sermons': (context) => SermonVideoRoute(),
-            '/playlist-detail': (context) => PlaylistitemsQuery(),
-            '/offering': (context) => OfferingRoute(),
-            '/card-detail': (context) => CardDetailRoute(),
-            '/offering-detail': (context) => OfferingDetailRoute(),
-          }),
+      child: Query(
+        options: QueryOptions(
+            documentNode: gql(queries.getChurch),
+            fetchPolicy: FetchPolicy.cacheFirst,
+            variables: {
+              'uuid': churchUUID,
+            }),
+        builder: (QueryResult result,
+            {VoidCallback refetch, FetchMore fetchMore}) {
+          if (result.hasException) {
+            return Text("데이터를 불러오는데 실패했습니다. 다시 시도하세요");
+          }
+          if (result.loading) {
+            return CircularProgressIndicator(
+              semanticsLabel: "불러오는 중....",
+            );
+          }
+
+          var churchResult = result.data["getChurch"];
+          List latestVideos = result.data["getChurch"]["latestVideos"];
+          final String churchId = churchResult["id"];
+          final String churchName = churchResult["name"];
+          final String churchIntro = churchResult["intro"];
+          final String churchChannelId = churchResult["channelId"];
+          final String slideImageOne = churchResult["slideImageOne"];
+          final String slideImageTwo = churchResult["slideImageTwo"];
+          final String slideImageThree = churchResult["slideImageThree"];
+
+          return MultiProvider(
+            providers: [
+              ChangeNotifierProvider(
+                create: (context) => Church(
+                    id: churchId,
+                    name: churchName,
+                    intro: churchIntro,
+                    channelId: churchChannelId,
+                    slideImageOne: slideImageOne,
+                    slideImageTwo: slideImageTwo,
+                    slideImageThree: slideImageThree),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => LatestVideos(latestVideos: latestVideos),
+              ),
+            ],
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                primarySwatch: Colors.green,
+                textTheme: GoogleFonts.nanumMyeongjoTextTheme(
+                    Theme.of(context).textTheme),
+              ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => MainPage(),
+                '/video-detail': (context) => VideoDetailRoute(),
+                '/sermons': (context) => SermonVideoRoute(),
+                '/playlist-detail': (context) => PlaylistitemsQuery(),
+                '/offering': (context) => OfferingRoute(),
+                '/card-detail': (context) => CardDetailRoute(),
+                '/offering-detail': (context) => OfferingDetailRoute(),
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 }
@@ -77,8 +127,6 @@ class _MainPageState extends State<MainPage> {
     SermonVideoRoute(),
     OfferingRoute(),
   ];
-
-  final String churchUUID = DotEnv().env["CHURCH_UUID"];
 
   @override
   Widget build(BuildContext context) {
@@ -125,52 +173,8 @@ class _MainPageState extends State<MainPage> {
         type: BottomNavigationBarType.fixed,
       ),
       body: Center(
-          child: Query(
-        options: QueryOptions(
-            documentNode: gql(queries.getChurch),
-            fetchPolicy: FetchPolicy.cacheFirst,
-            variables: {
-              'uuid': churchUUID,
-            }),
-        builder: (QueryResult result,
-            {VoidCallback refetch, FetchMore fetchMore}) {
-          if (result.hasException) {
-            return Text("데이터를 불러오는데 실패했습니다. 다시 시도하세요");
-          }
-          if (result.loading) {
-            return CircularProgressIndicator(
-              semanticsLabel: "불러오는 중....",
-            );
-          }
-
-          var churchResult = result.data["getChurch"];
-          List latestVideos = result.data["getChurch"]["latestVideos"];
-          final String churchName = churchResult["name"];
-          final String churchIntro = churchResult["intro"];
-          final String churchChannelId = churchResult["channelId"];
-          final String slideImageOne = churchResult["slideImageOne"];
-          final String slideImageTwo = churchResult["slideImageTwo"];
-          final String slideImageThree = churchResult["slideImageThree"];
-
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                create: (context) => Church(
-                    name: churchName,
-                    intro: churchIntro,
-                    channelId: churchChannelId,
-                    slideImageOne: slideImageOne,
-                    slideImageTwo: slideImageTwo,
-                    slideImageThree: slideImageThree),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => LatestVideos(latestVideos: latestVideos),
-              ),
-            ],
-            child: _screens[_selectedIndex],
-          );
-        },
-      )),
+        child: _screens[_selectedIndex],
+      ),
     );
   }
 }

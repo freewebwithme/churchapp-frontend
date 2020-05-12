@@ -3,21 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
-import '../widgets/playlist.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import '../widgets/playlist.dart';
+import './read_queries.dart';
 
 class PlaylistQuery extends StatelessWidget {
-  final String ALL_PLAYLISTS = """
-  query(\$channelId: String) {
-    playlists(channelId: \$channelId) {
-      id
-      playlistId
-      playlistTitle
-      description
-      thumbnailUrl
-    }
-  }
-  """;
   Widget build(BuildContext context) {
     return Consumer<Church>(builder: (context, church, child) {
       return Query(
@@ -58,12 +48,11 @@ class PlaylistQuery extends StatelessWidget {
                     itemBuilder: (context, index) {
                       final playlist = playlists[index];
                       return PlaylistCard(
-                        playlistId: playlist['playlistId'],
-                        playlistTitle: playlist['playlistTitle'],
-                        thumbnailUrl: playlist['thumbnailUrl'],
-                        description: playlist['description'],
-                        index: index
-                      );
+                          playlistId: playlist['playlistId'],
+                          playlistTitle: playlist['playlistTitle'],
+                          thumbnailUrl: playlist['thumbnailUrl'],
+                          description: playlist['description'],
+                          index: index);
                     },
                   ),
                 ),

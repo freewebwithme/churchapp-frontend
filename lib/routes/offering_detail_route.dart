@@ -4,7 +4,7 @@ import 'package:stripe_payment/stripe_payment.dart';
 import '../stripe/payment_service.dart';
 import '../widgets/rounded_button.dart';
 import '../model/card_info.dart';
-import '../constants.dart';
+import '../queries/make_offering_mutation.dart';
 
 class OfferingDetailRoute extends StatefulWidget {
   OfferingDetailRoute({Key key}) : super(key: key);
@@ -31,49 +31,32 @@ class _OfferingDetailRouteState extends State<OfferingDetailRoute> {
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
+        return MakeOfferingMutation(
+            paymentMethodId: paymentMethod.id,
+            email: email,
+            amount: amount,
+            success: success,
+            message: message,
+            scaffoldKey: _scaffoldKey);
+      },
+    );
+  }
+
+  Future<void> _showErrorDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
         return AlertDialog(
-          title: success ? Text("확인하세요") : Text("에러"),
-          content: SingleChildScrollView(
-            child: ListBody(
-              children: <Widget>[
-                Text(message),
-              ],
-            ),
-          ),
+          title: Text("에러"),
+          content: Text("결제정보가 정확하지 않습니다. 다시 확인해보고 시도하세요."),
           actions: <Widget>[
             FlatButton(
-              child: success ? Text("취소하기") : Text("닫기"),
+              child: Text("창 닫기"),
               onPressed: () {
-                if (success) {
-                  print("결제를 취소 했습니다.");
-                  Navigator.of(context).pop();
-                  _scaffoldKey.currentState.showSnackBar(
-                    SnackBar(
-                      content: Text("결제를 취소 했습니다."),
-                      backgroundColor: const Color(0xFFEF5350),
-                    ),
-                  );
-                } else {
-                  print("창을 닫습니다.");
-                  Navigator.of(context).pop();
-                }
+                Navigator.of(context).pushNamed("/card-detail");
               },
             ),
-            success
-                ? FlatButton(
-                    child: Text("결제하기"),
-                    onPressed: () {
-                      // confirm payment
-                      print("결제를 진행합니다.");
-                      Navigator.of(context).pop();
-                      _scaffoldKey.currentState.showSnackBar(
-                        SnackBar(
-                          content: Text("결제를 진행합니다."),
-                        ),
-                      );
-                    },
-                  )
-                : null,
           ],
         );
       },
@@ -90,7 +73,7 @@ class _OfferingDetailRouteState extends State<OfferingDetailRoute> {
     } else {
       // Show modal with error message
       print("Payment method error");
-      await _showMyDialog(result.message, result.success, result.paymentMethod);
+      await _showErrorDialog(result.message);
     }
   }
 
