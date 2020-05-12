@@ -4,7 +4,9 @@
    - Add News struct and News detail route
    - Improve playlitem list using FutureBuilder.
    - Working on IntroRoute (DONE)
-   - Get a donation.
+   - Implement confirm payment in backend server.
+     - send payment id to backend
+     - User click confirm payment then server confirm payment.
 
   [Youtube API]
    - Use Pubsub to get notified when video uploads.(Upload video to my channel if it sends to backend server)(DONE)

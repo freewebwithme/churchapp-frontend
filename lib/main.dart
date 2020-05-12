@@ -12,6 +12,8 @@ import './client_provider.dart';
 import './routes/video_detail_route.dart';
 import './routes/sermon_video_route.dart';
 import './routes/offering_route.dart';
+import './routes/offering_detail_route.dart';
+import './routes/card_detail.dart';
 import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
@@ -46,6 +48,8 @@ class ChurchApp extends StatelessWidget {
             '/sermons': (context) => SermonVideoRoute(),
             '/playlist-detail': (context) => PlaylistitemsQuery(),
             '/offering': (context) => OfferingRoute(),
+            '/card-detail': (context) => CardDetailRoute(),
+            '/offering-detail': (context) => OfferingDetailRoute(),
           }),
     );
   }

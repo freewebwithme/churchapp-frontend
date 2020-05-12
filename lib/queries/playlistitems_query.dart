@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import '../widgets/video_list.dart';
-import '../routes/playlist_info_argument.dart';
+import '../model/playlist_info_argument.dart';
 import './read_queries.dart';
 
 class PlaylistitemsQuery extends StatefulWidget {

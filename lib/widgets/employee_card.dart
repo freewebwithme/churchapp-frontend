@@ -6,7 +6,8 @@ class EmployeeCard extends StatelessWidget {
   final String intro;
   final String image;
 
-  const EmployeeCard({Key key, this.name, this.intro, this.image}) : super(key: key);
+  const EmployeeCard({Key key, this.name, this.intro, this.image})
+      : super(key: key);
 
   Widget build(BuildContext context) {
     return Padding(
@@ -59,8 +60,8 @@ class EmployeeCard extends StatelessWidget {
                     ),
                   ],
                 ),
-              )
-            )
+              ),
+            ),
           ],
         ),
       ),

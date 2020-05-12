@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../routes/playlist_info_argument.dart';
+import '../model/playlist_info_argument.dart';
 
 class PlaylistCard extends StatelessWidget {
   PlaylistCard(

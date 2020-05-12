@@ -38,7 +38,7 @@ class StripeService {
     var pmRequest = PaymentMethodRequest(card: card);
     try {
       var paymentMethod = await StripePayment.createPaymentMethod(pmRequest);
-      print("paymentMethod success");
+      print("paymentMethod success, printing amount: $amount");
       return new StripeTransactionResponse(
         message: "\$$amount 을 결제 하시겠습니까?",
         success: true,

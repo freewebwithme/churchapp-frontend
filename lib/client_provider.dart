@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
   String get host {
     if (Platform.isAndroid) {
-      return '192.168.1.10';
+      return '192.168.1.11';
     } else {
       return 'localhost';
     }

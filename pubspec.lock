@@ -23,7 +23,7 @@ packages:
     source: hosted
     version: "2.4.1"
   awesome_card:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: awesome_card
       url: "https://pub.dartlang.org"
@@ -248,7 +248,7 @@ packages:
     source: hosted
     version: "0.6.1+1"
   mask_text_input_formatter:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: mask_text_input_formatter
       url: "https://pub.dartlang.org"
