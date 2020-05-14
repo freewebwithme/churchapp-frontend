@@ -15,24 +15,28 @@ class SermonVideoRoute extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: sermonTabs.length,
-      child: Scaffold(
-        appBar: new AppBar(
-          backgroundColor: Colors.white,
-          flexibleSpace: new Column(
-            mainAxisAlignment: MainAxisAlignment.end,
-            children: <Widget>[
-              TabBar(
-                tabs: sermonTabs,
-                labelColor: Colors.black45,
-                indicatorColor: Theme.of(context).primaryColor,
-              ),
-            ],
-          ),
-        ),
-        body: TabBarView(
+      child: Padding(
+        padding: const EdgeInsets.only(right: 15),
+        child: Column(
           children: <Widget>[
-            LatestVideosTab(count: 25),
-            PlaylistQuery(),
+            TabBar(
+              tabs: sermonTabs,
+              labelColor: Colors.black45,
+              indicatorColor: Colors.pink[400],
+            ),
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+                child: TabBarView(
+                  children: <Widget>[
+                    LatestVideosTab(count: 25),
+                    PlaylistQuery(),
+                  ],
+                ),
+              ),
+            ),
           ],
         ),
       ),

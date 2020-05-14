@@ -24,7 +24,8 @@ class _CarouselForHomeState extends State<CarouselForHome> {
         //_child.add(Image(image: NetworkImage(url), height: 250));
         _child.add(CachedNetworkImage(
           imageUrl: url,
-          placeholder: (context, url) => Center(child: CircularProgressIndicator()),
+          placeholder: (context, url) =>
+              Center(child: CircularProgressIndicator()),
           errorWidget: (context, url, error) => Icon(Icons.error),
         ));
       }
@@ -34,20 +35,24 @@ class _CarouselForHomeState extends State<CarouselForHome> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: [
-      Consumer<Church>(
-        builder: (context, church, child) {
-          return CarouselSlider(
-            height: 280,
-            viewportFraction: 1.4,
-            aspectRatio: 4 / 3,
-            items: _buildSlideImage(church),
-            autoPlay: true,
-            autoPlayInterval: Duration(seconds: 7),
-            enlargeCenterPage: true,
-          );
-        },
-      ),
-    ]);
+    return Stack(
+      children: [
+        Consumer<Church>(
+          builder: (context, church, child) {
+            return CarouselSlider(
+              items: _buildSlideImage(church),
+              options: CarouselOptions(
+                autoPlay: true,
+                autoPlayInterval: Duration(seconds: 7),
+                enlargeCenterPage: true,
+                height: 280,
+                viewportFraction: 1.4,
+                aspectRatio: 4 / 3,
+              ),
+            );
+          },
+        ),
+      ],
+    );
   }
 }

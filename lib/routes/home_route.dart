@@ -15,10 +15,17 @@ class HomeRoute extends StatelessWidget {
           title: "최신 설교",
           link: "/sermons",
         ),
-        Consumer<LatestVideos>(builder: (context, latestVideos, child) {
+        SizedBox(
+          height: 15,
+        ),
+        Consumer<LatestVideos>(
+          builder: (context, latestVideos, child) {
             return Container(
               height: 250,
-              child: VideoHorizontalList(itemCount: 5, items: latestVideos.latestVideos),
+              child: VideoHorizontalList(
+                itemCount: 5,
+                items: latestVideos.latestVideos,
+              ),
             );
           },
         ),

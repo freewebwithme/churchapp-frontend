@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import '../model/video.dart';
-import '../constants.dart';
 
 class VideoCard extends StatelessWidget {
   VideoCard({
@@ -31,67 +30,74 @@ class VideoCard extends StatelessWidget {
               title, description, date, thumbnailUrl, videoId, channelTitle),
         );
       },
-      child: SizedBox(
-        height: 230,
-        width: 200,
-        child: Stack(
-          children: <Widget>[
-            Container(
-              margin: EdgeInsets.only(right: 20),
-              height: 230,
-              width: 200,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(38),
-                color: Colors.pink[600].withOpacity(.3),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 5.0),
+        child: SizedBox(
+          height: 110,
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Image(
+                image: NetworkImage('$thumbnailUrl'),
+                width: 150,
+                fit: BoxFit.contain,
               ),
-            ),
-            Container(
-              margin: EdgeInsets.only(right: 20),
-              height: 225,
-              width: 190,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(38),
-                color: Colors.white,
-              ),
-            ),
-            Container(
-              height: 220,
-              width: 190,
-              margin: EdgeInsets.only(right: 20),
-              decoration: BoxDecoration(
-                color: Colors.grey[100].withOpacity(.5),
-                borderRadius: BorderRadius.circular(34),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(15.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Image(
-                      image: NetworkImage('$thumbnailUrl'),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '$title',
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      style: titleTextStyle.copyWith(fontSize: 14),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      '$date',
-                      style: descriptionTextStyle,
-                    ),
-                  ],
+              Expanded(
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20.0, 0.0, 2.0, 0.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      Expanded(
+                        flex: 2,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: <Widget>[
+                            Text(
+                              '$title',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const Padding(
+                                padding: EdgeInsets.only(bottom: 5.0)),
+                            Text(
+                              '$description',
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.end,
+                          children: <Widget>[
+                            Text(
+                              '$date',
+                              style: const TextStyle(
+                                fontSize: 12.0,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

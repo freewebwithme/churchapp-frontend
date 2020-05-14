@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/video_card.dart';
+import '../widgets/video_horizontal_card.dart';
 
 class VideoHorizontalList extends StatelessWidget {
   final int itemCount;
@@ -22,7 +22,7 @@ class VideoHorizontalList extends StatelessWidget {
         itemBuilder: (context, index) {
           print('printing item index: $index');
           final item = items[index];
-          return VideoCard(
+          return VideoHorizontalCard(
             title: item['title'],
             description: item['description'],
             date: item['publishedAt'],

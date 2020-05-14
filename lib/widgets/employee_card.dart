@@ -3,10 +3,10 @@ import '../constants.dart';
 
 class EmployeeCard extends StatelessWidget {
   final String name;
-  final String intro;
+  final String title;
   final String image;
 
-  const EmployeeCard({Key key, this.name, this.intro, this.image})
+  const EmployeeCard({Key key, this.name, this.title, this.image})
       : super(key: key);
 
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class EmployeeCard extends StatelessWidget {
           children: <Widget>[
             Container(
               height: 136,
-              width: double.infinity,
+              width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),
                 color: Colors.white,
@@ -32,16 +32,29 @@ class EmployeeCard extends StatelessWidget {
                 ],
               ),
             ),
-            Image(image: AssetImage(image), height: 136, fit: BoxFit.contain),
+            Positioned(
+              left: 10,
+              child: Container(
+                height: 100,
+                width: 100,
+                decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  image: DecorationImage(
+                    image: AssetImage(image),
+                  ),
+                ),
+              ),
+            ),
             Positioned(
               left: 130,
+              top: 60,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 height: 136,
-                width: MediaQuery.of(context).size.width - 170,
+                width: MediaQuery.of(context).size.width - 250,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
                     Text(
                       name,
@@ -50,7 +63,7 @@ class EmployeeCard extends StatelessWidget {
                     SizedBox(height: 15),
                     Expanded(
                       child: Text(
-                        intro,
+                        title,
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
