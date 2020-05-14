@@ -61,6 +61,8 @@ flutter:
     - images/playlistimage.jpg
     - images/kimjungoh.png
     - images/epc-main.png
+    - images/main-bg.png
+    - images/main-bg-1.png
     - images/dot.png
     - google_fonts/
     - .env
