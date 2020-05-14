@@ -7,20 +7,17 @@ class SectionTitle extends StatelessWidget {
   final String link;
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 12.0),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: <Widget>[
-          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-          FlatButton(
-            child: Text("더보기"),
-            onPressed: () {
-              Navigator.of(context).pushNamed(link);
-            },
-          )
-        ],
-      ),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: <Widget>[
+        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        FlatButton(
+          child: Text("더보기"),
+          onPressed: () {
+            Navigator.of(context).pushNamed(link);
+          },
+        )
+      ],
     );
   }
 }

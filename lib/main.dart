@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -18,19 +16,19 @@ import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
 import './model/church.dart';
+import './constants.dart';
 
 void main() async {
   await DotEnv().load('.env');
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //systemNavigationBarColor: Colors.green,
-    statusBarColor: Colors.green,
+    statusBarColor: cPrimaryColor,
   ));
   runApp(ChurchApp());
 }
 
 class ChurchApp extends StatelessWidget {
   // This widget is the root of your application.
-
   final String churchUUID = DotEnv().env["CHURCH_UUID"];
 
   @override
@@ -83,7 +81,8 @@ class ChurchApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                primarySwatch: Colors.green,
+                scaffoldBackgroundColor: cWhiteColor,
+                primaryColor: cWhiteColor,
                 textTheme: GoogleFonts.nanumMyeongjoTextTheme(
                     Theme.of(context).textTheme),
               ),
@@ -115,65 +114,201 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
-  void _onTapped(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   final List<Widget> _screens = [
     HomeRoute(),
     IntroRoute(),
-    SermonVideoRoute(),
-    OfferingRoute(),
   ];
 
   @override
   Widget build(BuildContext context) {
-    final colorScheme = Theme.of(context).colorScheme;
-    final textTheme = Theme.of(context).textTheme;
-
     return Scaffold(
-      //appBar: AppBar(
-      //  // Here we take the value from the MyHomePage object that was created by
-      //  // the App.build method, and use it to set our appbar title.
-      //  title: Text("동부 장로 교회", style: GoogleFonts.nanumMyeongjo()),
-      //  centerTitle: true,
-      //),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            title: Text('처음'),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          SizedBox(
+            height: 50,
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.import_contacts),
-            title: Text('소개'),
+          Padding(
+            padding: EdgeInsets.all(20),
+            child: Text(
+              "동부 장로 교회",
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.subscriptions),
-            title: Text('설교'),
+          Padding(
+            padding: const EdgeInsets.only(left: 20),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                Container(
+                  color: cPinkA700.withOpacity(0.5),
+                  height: 2,
+                  width: 200,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Container(
+                  color: cPinkA700,
+                  height: 2,
+                  width: 150,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 0;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            child: Text(
+                              "처음",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 0
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 1;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            child: Text(
+                              "소개",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 1
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 2;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            child: Text(
+                              "설교",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 2
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 3;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            child: Text(
+                              "연보",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 3
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 4;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 50,
+                            height: 50,
+                            child: Text(
+                              "소식",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 4
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10, right: 10),
+                        child: InkWell(
+                          onTap: () {
+                            setState(() {
+                              _selectedIndex = 5;
+                            });
+                          },
+                          child: Container(
+                            alignment: Alignment.center,
+                            width: 70,
+                            height: 50,
+                            child: Text(
+                              "생방송",
+                              style: menuTextStyle.copyWith(
+                                  color: _selectedIndex == 5
+                                      ? cPrimaryColor
+                                      : cPrimaryColor.withOpacity(.4)),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+              ],
+            ),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.attach_money),
-            title: Text('연보'),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.live_tv),
-            title: Text('생방송'),
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20),
+              child: _screens[_selectedIndex],
+            ),
           ),
         ],
-        currentIndex: _selectedIndex,
-        onTap: _onTapped,
-        backgroundColor: colorScheme.onPrimary,
-        selectedFontSize: textTheme.caption.fontSize,
-        unselectedFontSize: textTheme.caption.fontSize,
-        unselectedItemColor: Colors.black38.withOpacity(0.38),
-        selectedItemColor: colorScheme.primary,
-        type: BottomNavigationBarType.fixed,
-      ),
-      body: Center(
-        child: _screens[_selectedIndex],
       ),
     );
   }
