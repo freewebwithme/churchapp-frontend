@@ -8,7 +8,6 @@ import './client_provider.dart';
 import './routes/video_detail_route.dart';
 import './routes/sermon_video_route.dart';
 import './routes/offering_route.dart';
-import './routes/offering_detail_route.dart';
 import './routes/main_page.dart';
 import './routes/card_detail.dart';
 import './queries/playlistitems_query.dart';
@@ -46,8 +45,10 @@ class ChurchApp extends StatelessWidget {
             return Text("데이터를 불러오는데 실패했습니다. 다시 시도하세요");
           }
           if (result.loading) {
-            return CircularProgressIndicator(
-              semanticsLabel: "불러오는 중....",
+            return Center(
+              child: CircularProgressIndicator(
+                semanticsLabel: "불러오는 중....",
+              ),
             );
           }
 
@@ -80,8 +81,8 @@ class ChurchApp extends StatelessWidget {
             child: MaterialApp(
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
-                scaffoldBackgroundColor: cWhiteColor,
-                primaryColor: cWhiteColor,
+                scaffoldBackgroundColor: defaultBgColor,
+                primaryColor: cPinkA700,
                 textTheme: GoogleFonts.nanumMyeongjoTextTheme(
                     Theme.of(context).textTheme),
               ),
@@ -93,7 +94,6 @@ class ChurchApp extends StatelessWidget {
                 '/playlist-detail': (context) => PlaylistitemsQuery(),
                 '/offering': (context) => OfferingRoute(),
                 '/card-detail': (context) => CardDetailRoute(),
-                '/offering-detail': (context) => OfferingDetailRoute(),
               },
             ),
           );

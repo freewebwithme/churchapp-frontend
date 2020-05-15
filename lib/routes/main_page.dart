@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import '../constants.dart';
 import 'intro_route.dart';
 import 'sermon_video_route.dart';
+import 'offering_route.dart';
+
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -19,6 +21,7 @@ class _MainPageState extends State<MainPage> {
     HomeRoute(),
     IntroRoute(),
     SermonVideoRoute(),
+    OfferingRoute(),
   ];
 
   @override
@@ -31,11 +34,11 @@ class _MainPageState extends State<MainPage> {
             // Height of the container is 45% of our total height
             height: size.height * 0.45,
             decoration: BoxDecoration(
-              color: Color(0xFFF5CEB8),
-              //backgroundBlendMode: BlendMode.lighten,
+              color: Color(0xFFF5CEB8).withOpacity(.7),
+              // backgroundBlendMode: BlendMode.overlay,
               image: DecorationImage(
-                alignment: Alignment.centerLeft,
-                image: AssetImage("images/main-bg.png"),
+                alignment: Alignment(1.5, 0.0),
+                image: AssetImage("images/cross.png"),
                 //fit: BoxFit.cover,
               ),
             ),
@@ -47,7 +50,8 @@ class _MainPageState extends State<MainPage> {
                 height: 50,
               ),
               Padding(
-                padding: EdgeInsets.all(20),
+                padding:
+                    EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
                 child: Text(
                   "동부 장로 교회",
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
@@ -59,17 +63,17 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Container(
-                      color: cPinkA700.withOpacity(0.5),
-                      height: 2,
-                      width: 200,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
+                    //  Container(
+                    //    color: cPinkA700.withOpacity(0.5),
+                    //    height: 2,
+                    //    width: 200,
+                    //  ),
+                    //  SizedBox(
+                    //    height: 10,
+                    //  ),
                     Container(
                       color: cPinkA700,
-                      height: 2,
+                      height: 1,
                       width: 150,
                     ),
                     SizedBox(
@@ -222,10 +226,7 @@ class _MainPageState extends State<MainPage> {
               ),
               // Main body Start
               Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 20),
-                  child: _screens[_selectedIndex],
-                ),
+                child: _screens[_selectedIndex],
               ),
             ],
           ),

@@ -12,7 +12,10 @@ class LatestVideosTab extends StatelessWidget {
 
   Widget build(BuildContext context) {
     return Consumer<LatestVideos>(builder: (context, latestVideos, child) {
-      return VideoList(itemCount: count, items: latestVideos.latestVideos);
+      return Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: VideoList(itemCount: count, items: latestVideos.latestVideos),
+      );
     });
   }
 }

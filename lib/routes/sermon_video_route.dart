@@ -16,7 +16,7 @@ class SermonVideoRoute extends StatelessWidget {
     return DefaultTabController(
       length: sermonTabs.length,
       child: Padding(
-        padding: const EdgeInsets.only(right: 15),
+        padding: const EdgeInsets.symmetric(horizontal: 20),
         child: Column(
           children: <Widget>[
             TabBar(

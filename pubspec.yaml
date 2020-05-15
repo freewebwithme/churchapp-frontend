@@ -64,6 +64,7 @@ flutter:
     - images/main-bg.png
     - images/main-bg-1.png
     - images/dot.png
+    - images/cross.png
     - google_fonts/
     - .env
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 import '../model/playlist_info_argument.dart';
 
 class PlaylistCard extends StatelessWidget {
@@ -16,37 +17,61 @@ class PlaylistCard extends StatelessWidget {
   final String playlistId;
 
   Widget build(BuildContext context) {
-    return Card(
-      child: InkWell(
-        splashColor: Theme.of(context).primaryColor.withAlpha(30),
-        onTap: () {
-          print('channel card tapped');
-          Navigator.pushNamed(
-            context,
-            '/playlist-detail',
-            arguments:
-                PlaylistInfoArgument(playlistId, playlistTitle, description),
-          );
-        },
-        child: Container(
-          width: 100,
-          height: 50,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: EdgeInsets.symmetric(horizontal: 10.0),
-                child: Text(playlistTitle,
-                    style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w300,
-                    )),
+    return ClipRRect(
+      borderRadius: BorderRadius.circular(13),
+      child: Container(
+        width: 100,
+        height: 75,
+        decoration: BoxDecoration(
+          color: Colors.grey[100],
+          borderRadius: BorderRadius.circular(13),
+          boxShadow: [
+            BoxShadow(
+              offset: Offset(0, 17),
+              blurRadius: 23,
+              spreadRadius: -13,
+              color: shadowColor,
+            ),
+          ],
+        ),
+        child: Material(
+          color: Colors.transparent,
+          child: InkWell(
+            onTap: () {
+              print('channel card tapped');
+              Navigator.pushNamed(
+                context,
+                '/playlist-detail',
+                arguments: PlaylistInfoArgument(
+                    playlistId, playlistTitle, description),
+              );
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Row(
+                children: <Widget>[
+                  Container(
+                    height: 42,
+                    width: 43,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      border: Border.all(color: cPinkA700),
+                    ),
+                    child: Icon(
+                      Icons.play_arrow,
+                      color: cPinkA700,
+                    ),
+                  ),
+                  SizedBox(width: 10),
+                  Text(
+                    playlistTitle,
+                    maxLines: 2,
+                    style: menuTextStyle,
+                  ),
+                ],
               ),
-            ],
-          ),
-          decoration: BoxDecoration(
-            color: Theme.of(context).cardTheme.color,
-            shape: BoxShape.rectangle,
+            ),
           ),
         ),
       ),
