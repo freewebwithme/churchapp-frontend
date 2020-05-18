@@ -14,10 +14,6 @@ class HomeRoute extends StatelessWidget {
         children: <Widget>[
           SectionTitle(
             title: "최신 설교",
-            link: "/sermons",
-          ),
-          SizedBox(
-            height: 15,
           ),
           Consumer<LatestVideos>(
             builder: (context, latestVideos, child) {
@@ -32,7 +28,6 @@ class HomeRoute extends StatelessWidget {
           ),
           SectionTitle(
             title: "교회 소식",
-            link: "/sermons",
           ),
           Expanded(
             child: NewsCard(),

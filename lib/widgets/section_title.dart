@@ -1,23 +1,19 @@
 import 'package:flutter/material.dart';
 
 class SectionTitle extends StatelessWidget {
-  const SectionTitle({Key key, this.title, this.link}) : super(key: key);
+  const SectionTitle({Key key, this.title}) : super(key: key);
 
   final String title;
-  final String link;
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: <Widget>[
-        Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
-        FlatButton(
-          child: Text("더보기"),
-          onPressed: () {
-            Navigator.of(context).pushNamed(link);
-          },
-        )
-      ],
+    return Padding(
+      padding: const EdgeInsets.only(top: 27, bottom: 20),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+        ],
+      ),
     );
   }
 }

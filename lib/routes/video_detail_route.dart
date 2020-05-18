@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import '../model/video.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import '../model/video.dart';
+import '../widgets/custom_appbar.dart';
 
 class VideoDetailRoute extends StatefulWidget {
   @override
@@ -44,12 +45,7 @@ class _VideoDetailRouteState extends State<VideoDetailRoute> {
       ),
     );
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          args.title,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      appBar: CustomAppBar(title: "설교 영상"),
       body: Column(children: <Widget>[
         YoutubePlayer(
           controller: _controller,

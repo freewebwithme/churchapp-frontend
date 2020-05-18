@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../widgets/latest_videos_tab.dart';
 import '../queries/playlist_query.dart';
+import '../constants.dart';
 
 class SermonVideoRoute extends StatelessWidget {
   final List<Tab> sermonTabs = <Tab>[
@@ -22,7 +23,7 @@ class SermonVideoRoute extends StatelessWidget {
             TabBar(
               tabs: sermonTabs,
               labelColor: Colors.black45,
-              indicatorColor: Colors.pink[400],
+              indicatorColor: cPrimaryAccentColor,
             ),
             Expanded(
               child: Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../constants.dart';
 
 class NewsCard extends StatefulWidget {
   @override
@@ -22,9 +23,10 @@ class _NewsCardState extends State<NewsCard> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: ListTile(
-                leading: Icon(Icons.fiber_new, color: Colors.amber[800].withOpacity(.7)),
-                subtitle:
-                Text(
+                leading: Icon(Icons.fiber_new,
+                  color: cPrimaryAccentColor,
+                ),
+                subtitle: Text(
                   "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -43,9 +45,11 @@ class _NewsCardState extends State<NewsCard> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: ListTile(
-                leading: Icon(Icons.fiber_new, color: Colors.amber[800].withOpacity(.7)),
-                subtitle:
-                Text(
+                leading: Icon(
+                  Icons.fiber_new,
+                  color: cPrimaryAccentColor,
+                ),
+                subtitle: Text(
                   "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -64,9 +68,9 @@ class _NewsCardState extends State<NewsCard> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: ListTile(
-                leading: Icon(Icons.fiber_new, color: Colors.amber[800].withOpacity(.7)),
-                subtitle:
-                Text(
+                leading: Icon(Icons.fiber_new,
+                    color: Colors.amber[800].withOpacity(.7)),
+                subtitle: Text(
                   "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,
@@ -85,9 +89,9 @@ class _NewsCardState extends State<NewsCard> {
             child: Padding(
               padding: EdgeInsets.symmetric(vertical: 10.0),
               child: ListTile(
-                leading: Icon(Icons.fiber_new, color: Colors.amber[800].withOpacity(.7)),
-                subtitle:
-                Text(
+                leading: Icon(Icons.fiber_new,
+                    color: Colors.amber[800].withOpacity(.7)),
+                subtitle: Text(
                   "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
                   maxLines: 2,
                   overflow: TextOverflow.ellipsis,

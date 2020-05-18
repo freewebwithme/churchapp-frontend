@@ -13,23 +13,27 @@ class EmployeeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: SizedBox(
-        height: 156,
+        height: 180,
         child: Stack(
           alignment: Alignment.centerLeft,
           children: <Widget>[
-            Container(
-              height: 136,
-              width: 300,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20),
-                color: Colors.white,
-                boxShadow: [
-                  BoxShadow(
-                    offset: Offset(0, 8),
-                    blurRadius: 24,
-                    color: shadowColor,
-                  ),
-                ],
+            Material(
+              elevation: 5,
+              borderRadius: BorderRadius.circular(20),
+              child: Container(
+                height: 166,
+                width: 300,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                  boxShadow: [
+                    BoxShadow(
+                      offset: Offset(0, 8),
+                      blurRadius: 24,
+                      color: shadowColor,
+                    ),
+                  ],
+                ),
               ),
             ),
             Positioned(
@@ -58,7 +62,7 @@ class EmployeeCard extends StatelessWidget {
                   children: <Widget>[
                     Text(
                       name,
-                      style: titleTextStyle.copyWith(fontSize: 16),
+                      style: titleTextStyle.copyWith(fontSize: 18),
                     ),
                     SizedBox(height: 15),
                     Expanded(
@@ -67,7 +71,7 @@ class EmployeeCard extends StatelessWidget {
                         maxLines: 4,
                         overflow: TextOverflow.ellipsis,
                         style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 14,
                         ),
                       ),
                     ),

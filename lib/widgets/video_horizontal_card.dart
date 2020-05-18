@@ -41,8 +41,8 @@ class VideoHorizontalCard extends StatelessWidget {
               height: 230,
               width: 200,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(38),
-                color: Colors.pink[600].withOpacity(.3),
+                borderRadius: BorderRadius.circular(16),
+                color: cPrimaryAccentColor,
               ),
             ),
             Container(
@@ -50,7 +50,7 @@ class VideoHorizontalCard extends StatelessWidget {
               height: 225,
               width: 190,
               decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(38),
+                borderRadius: BorderRadius.circular(16),
                 color: Colors.white,
               ),
             ),
@@ -60,7 +60,7 @@ class VideoHorizontalCard extends StatelessWidget {
               margin: EdgeInsets.only(right: 20),
               decoration: BoxDecoration(
                 color: Colors.grey[100].withOpacity(.5),
-                borderRadius: BorderRadius.circular(34),
+                borderRadius: BorderRadius.circular(16),
               ),
               child: Padding(
                 padding: const EdgeInsets.all(15.0),

@@ -20,7 +20,7 @@ void main() async {
   await DotEnv().load('.env');
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
     //systemNavigationBarColor: Colors.green,
-    statusBarColor: cPrimaryColor,
+    //statusBarColor: cPrimaryColor,
   ));
   runApp(ChurchApp());
 }
@@ -82,7 +82,7 @@ class ChurchApp extends StatelessWidget {
               debugShowCheckedModeBanner: false,
               theme: ThemeData(
                 scaffoldBackgroundColor: defaultBgColor,
-                primaryColor: cPinkA700,
+                primaryColor: cPrimaryAccentColor,
                 textTheme: GoogleFonts.nanumMyeongjoTextTheme(
                     Theme.of(context).textTheme),
               ),

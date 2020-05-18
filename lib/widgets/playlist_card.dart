@@ -56,11 +56,11 @@ class PlaylistCard extends StatelessWidget {
                     decoration: BoxDecoration(
                       color: Colors.white,
                       shape: BoxShape.circle,
-                      border: Border.all(color: cPinkA700),
+                      border: Border.all(color: cPrimaryAccentColor),
                     ),
                     child: Icon(
                       Icons.play_arrow,
-                      color: cPinkA700,
+                      color: cPrimaryAccentColor,
                     ),
                   ),
                   SizedBox(width: 10),

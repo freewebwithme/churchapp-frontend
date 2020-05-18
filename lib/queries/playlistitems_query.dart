@@ -3,6 +3,7 @@ import 'package:graphql_flutter/graphql_flutter.dart';
 import '../widgets/video_list.dart';
 import '../model/playlist_info_argument.dart';
 import './read_queries.dart';
+import '../widgets/custom_appbar.dart';
 
 class PlaylistitemsQuery extends StatefulWidget {
   _PlaylistitemsQueryState createState() => _PlaylistitemsQueryState();
@@ -15,12 +16,7 @@ class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
     final PlaylistInfoArgument args = ModalRoute.of(context).settings.arguments;
 
     return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          args.playlistTitle,
-          overflow: TextOverflow.fade,
-        ),
-      ),
+      appBar: CustomAppBar(title: args.playlistTitle),
       body: Query(
           options: QueryOptions(
               documentNode: gql(PLAYLISTITEMS),

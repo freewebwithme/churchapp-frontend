@@ -5,7 +5,7 @@ import '../constants.dart';
 import 'intro_route.dart';
 import 'sermon_video_route.dart';
 import 'offering_route.dart';
-
+import 'news_route.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -17,12 +17,19 @@ class MainPage extends StatefulWidget {
 class _MainPageState extends State<MainPage> {
   int _selectedIndex = 0;
 
+  void onMenuTapped(int index) {
+    setState(() {
+        _selectedIndex = index;
+    });
+  }
   final List<Widget> _screens = [
     HomeRoute(),
     IntroRoute(),
     SermonVideoRoute(),
     OfferingRoute(),
+    NewsRoute(),
   ];
+
 
   @override
   Widget build(BuildContext context) {
@@ -30,16 +37,20 @@ class _MainPageState extends State<MainPage> {
     return Scaffold(
       body: Stack(
         children: <Widget>[
-          Container(
-            // Height of the container is 45% of our total height
-            height: size.height * 0.45,
-            decoration: BoxDecoration(
-              color: Color(0xFFF5CEB8).withOpacity(.7),
-              // backgroundBlendMode: BlendMode.overlay,
-              image: DecorationImage(
-                alignment: Alignment(1.5, 0.0),
-                image: AssetImage("images/cross.png"),
-                //fit: BoxFit.cover,
+          Material(
+            elevation: 5,
+            shadowColor: cPrimaryAccentColor,
+            child: Container(
+              // Height of the container is 45% of our total height
+              height: size.height * 0.45,
+              decoration: BoxDecoration(
+                color: cPrimaryColor,
+                // backgroundBlendMode: BlendMode.overlay,
+                image: DecorationImage(
+                  alignment: Alignment(1.5, 0.0),
+                  image: AssetImage("images/cross.png"),
+                  //fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
@@ -63,16 +74,8 @@ class _MainPageState extends State<MainPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    //  Container(
-                    //    color: cPinkA700.withOpacity(0.5),
-                    //    height: 2,
-                    //    width: 200,
-                    //  ),
-                    //  SizedBox(
-                    //    height: 10,
-                    //  ),
                     Container(
-                      color: cPinkA700,
+                      color: cPrimaryAccentColor,
                       height: 1,
                       width: 150,
                     ),
@@ -87,9 +90,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 0;
-                                });
+                                onMenuTapped(0);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -99,8 +100,8 @@ class _MainPageState extends State<MainPage> {
                                   "처음",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 0
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),
@@ -109,9 +110,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 1;
-                                });
+                                onMenuTapped(1);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -121,8 +120,8 @@ class _MainPageState extends State<MainPage> {
                                   "소개",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 1
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),
@@ -131,9 +130,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 2;
-                                });
+                                onMenuTapped(2);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -143,8 +140,8 @@ class _MainPageState extends State<MainPage> {
                                   "설교",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 2
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),
@@ -153,9 +150,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 3;
-                                });
+                                onMenuTapped(3);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -165,8 +160,8 @@ class _MainPageState extends State<MainPage> {
                                   "연보",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 3
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),
@@ -175,9 +170,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 4;
-                                });
+                                onMenuTapped(4);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -187,8 +180,8 @@ class _MainPageState extends State<MainPage> {
                                   "소식",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 4
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),
@@ -197,9 +190,7 @@ class _MainPageState extends State<MainPage> {
                             padding: const EdgeInsets.only(left: 10, right: 10),
                             child: InkWell(
                               onTap: () {
-                                setState(() {
-                                  _selectedIndex = 5;
-                                });
+                                onMenuTapped(5);
                               },
                               child: Container(
                                 alignment: Alignment.center,
@@ -209,8 +200,8 @@ class _MainPageState extends State<MainPage> {
                                   "생방송",
                                   style: menuTextStyle.copyWith(
                                       color: _selectedIndex == 5
-                                          ? cPrimaryColor
-                                          : cPrimaryColor.withOpacity(.4)),
+                                          ? titleTextColor
+                                          : titleTextColor.withOpacity(.4)),
                                 ),
                               ),
                             ),

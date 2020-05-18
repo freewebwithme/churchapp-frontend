@@ -1,9 +1,13 @@
+import 'package:churchapp/model/offering_info.dart';
+import 'package:churchapp/queries/make_offering_mutation.dart';
+import 'package:churchapp/stripe/payment_service.dart';
 import 'package:flutter/material.dart';
-import 'package:awesome_card/awesome_card.dart';
+import 'package:awesome_card/awesome_card.dart' as AwesomeCard;
 import 'package:flutter/services.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
+import 'package:stripe_payment/stripe_payment.dart';
 import '../widgets/rounded_button.dart';
-import '../model/card_info.dart';
+import '../widgets/custom_appbar.dart';
 
 class CardDetailRoute extends StatefulWidget {
   CardDetailRoute({Key key}) : super(key: key);
@@ -14,7 +18,7 @@ class CardDetailRoute extends StatefulWidget {
 class _CardDetailRouteState extends State<CardDetailRoute> {
   String cardNumber = "";
   String expDate = "";
-  String cvv = "";
+  String cvc = "";
   bool showBack = false;
 
   FocusNode _focusNode;
@@ -32,6 +36,8 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
         _focusNode.hasFocus ? showBack = true : showBack = false;
       });
     });
+
+    StripeService.init();
   }
 
   @override
@@ -41,13 +47,72 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
   }
 
   final _formKey = GlobalKey<FormState>();
+  final _scaffoldKey = GlobalKey<ScaffoldState>();
+
+  Future<void> _showErrorDialog(String message) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text("에러"),
+          content: Text("결제정보가 정확하지 않습니다. 다시 확인해보고 시도하세요."),
+          actions: <Widget>[
+            FlatButton(
+              child: Text("창 닫기"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> _showMyDialog(
+      String message, bool success, PaymentMethod paymentMethod, String amount, String email) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return MakeOfferingMutation(
+            paymentMethodId: paymentMethod.id,
+            email: email,
+            amount: amount,
+            success: success,
+            message: message,
+            scaffoldKey: _scaffoldKey);
+      },
+    );
+  }
+
+  makeOffering(String cardNumber, int expMonth, int expYear, String cvc,
+      String amount, String email) async {
+    var result = await StripeService.createPaymentMethod(
+        cardNumber, expMonth, expYear, cvc, amount);
+    if (result.success == true) {
+      // Show modal to confirm payment
+      print("Payment method success");
+      await _showMyDialog(result.message, result.success, result.paymentMethod, amount, email);
+    } else {
+      // Show modal with error message
+      print("Payment method error");
+      await _showErrorDialog(result.message);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     print("printing cardnumber ${cardNumberFormatter.getUnmaskedText()}");
 
+    final OfferingInfo offeringInfo = ModalRoute.of(context).settings.arguments;
+    print("Printing offering info : email: ${offeringInfo.email}");
+    print("Printing offering info : amount: ${offeringInfo.amount}");
+
     return Scaffold(
-      appBar: AppBar(title: Text("카드 정보 입력")),
+      key: _scaffoldKey,
+      appBar: CustomAppBar(title: "카드 정보"),
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -56,13 +121,13 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
             SizedBox(
               height: 40,
             ),
-            CreditCard(
+            AwesomeCard.CreditCard(
               cardNumber: cardNumber,
               cardExpiry: expDate,
-              cvv: cvv,
+              cvv: cvc,
               showBackSide: showBack,
-              frontBackground: CardBackgrounds.black,
-              backBackground: CardBackgrounds.white,
+              frontBackground: AwesomeCard.CardBackgrounds.black,
+              backBackground: AwesomeCard.CardBackgrounds.white,
               showShadow: true,
             ),
             SizedBox(
@@ -135,7 +200,7 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
                     child: new TextFormField(
                       decoration: const InputDecoration(
                         icon: const Icon(Icons.credit_card),
-                        hintText: "CVV를 입력하세요",
+                        hintText: "CVC를 입력하세요",
                       ),
                       maxLength: 3,
                       keyboardType: TextInputType.phone,
@@ -145,12 +210,12 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
                       focusNode: _focusNode,
                       onChanged: (value) {
                         setState(() {
-                          cvv = value;
+                          cvc = value;
                         });
                       },
                       validator: (value) {
                         if (value.length < 3) {
-                          return "CVV 넘버를 확인해주세요.";
+                          return "CVC 넘버를 확인해주세요.";
                         }
                         return null;
                       },
@@ -166,15 +231,8 @@ class _CardDetailRouteState extends State<CardDetailRoute> {
                           var exp = expDate.split("/");
                           var cardExpMonth = exp[0];
                           var cardExpYear = exp[1];
-                          Navigator.pushNamed(
-                            context,
-                            '/offering-detail',
-                            arguments: CardInfo(
-                                cardNumberFormatter.getUnmaskedText(),
-                                int.parse(cardExpMonth),
-                                int.parse(cardExpYear),
-                                cvv),
-                          );
+                          makeOffering(cardNumber, int.parse(cardExpMonth), int.parse(cardExpYear),
+                              cvc, offeringInfo.amount, offeringInfo.email);
                         }
                       },
                     ),

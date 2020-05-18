@@ -1,16 +1,15 @@
+import 'package:churchapp/widgets/rounded_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import '../widgets/rounded_button.dart';
-import '../model/offering_info.dart';
 import '../constants.dart';
 
-class OfferingDetailForm extends StatefulWidget {
-  OfferingDetailForm({Key key}) : super(key: key);
+class NewsRoute extends StatefulWidget {
   @override
-  _OfferingDetailFormState createState() => _OfferingDetailFormState();
+  _NewsRouteState createState() => _NewsRouteState();
 }
 
-class _OfferingDetailFormState extends State<OfferingDetailForm> {
+class _NewsRouteState extends State<NewsRoute> {
+  final _formKey = GlobalKey<FormState>();
   String email;
   String amount;
 
@@ -20,9 +19,7 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
     amount = "0";
   }
 
-  final _formKey = GlobalKey<FormState>();
-
-  @override
+  @override 
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Padding(
@@ -34,22 +31,18 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               Padding(
-                padding: const EdgeInsets.only(top: 60, bottom: 40),
+                padding: const EdgeInsets.symmetric(vertical: 40.0),
                 child: Text(
-                  "\$$amount",
+                  "\$ 999 ",
                   style: moneyTextStyle,
                 ),
               ),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 18,
-                ),
                 decoration: const InputDecoration(
                   labelText: "이메일",
-                  border: const OutlineInputBorder(),
                   icon: const Icon(
                     Icons.email,
-                    color: cPrimaryAccentColor,
+                    color: cPinkA700,
                   ),
                   hintText: "이메일을 입력하세요.",
                 ),
@@ -58,9 +51,8 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
                       r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$");
                   if (regex.hasMatch(value)) {
                     return null;
-                  } else {
-                    return "이메일 형식이 잘못됬습니다. 다시 입력하세요";
                   }
+                  return "이메일 형식이 잘못됬습니다. 다시 입력하세요";
                 },
                 onChanged: (value) {
                   setState(() {
@@ -72,16 +64,10 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
                 height: 40,
               ),
               TextFormField(
-                style: TextStyle(
-                  fontSize: 18,
-                ),
+                style: TextStyle(fontSize: 24),
                 decoration: const InputDecoration(
+                  icon: const Icon(Icons.attach_money),
                   labelText: "금액",
-                  border: const OutlineInputBorder(),
-                  icon: const Icon(
-                    Icons.attach_money,
-                    color: cPrimaryAccentColor,
-                  ),
                   hintText: "헌금 액수를 입럭하세요.",
                 ),
                 keyboardType: TextInputType.phone,
@@ -92,7 +78,7 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
                   }
                   int numValue = int.parse(value);
                   if (numValue == 0 || numValue < 5) {
-                    return "헌금은 \$5이 최소 금액입니다.";
+                    return "헌금은 5불이 최소 금액입니다.";
                   }
                   return null;
                 },
@@ -119,14 +105,7 @@ class _OfferingDetailFormState extends State<OfferingDetailForm> {
                       // form is validated
                       // get a payment method id from stripe and show the result
                       // in dialog
-                      Navigator.pushNamed(
-                        context,
-                        '/card-detail',
-                        arguments: OfferingInfo(
-                          email,
-                          amount,
-                        ),
-                      );
+                      print("form is validated!");
                     }
                   },
                 ),

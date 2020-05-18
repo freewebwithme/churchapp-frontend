@@ -20,11 +20,13 @@ class _OfferingRouteState extends State<OfferingRoute> {
           color: Colors.white,
           borderRadius: BorderRadius.circular(50),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            OfferingDetailForm(),
-          ],
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              OfferingDetailForm(),
+            ],
+          ),
         ),
       ),
     );
