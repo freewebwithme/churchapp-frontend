@@ -58,9 +58,6 @@ class ChurchApp extends StatelessWidget {
           final String churchName = churchResult["name"];
           final String churchIntro = churchResult["intro"];
           final String churchChannelId = churchResult["channelId"];
-          final String slideImageOne = churchResult["slideImageOne"];
-          final String slideImageTwo = churchResult["slideImageTwo"];
-          final String slideImageThree = churchResult["slideImageThree"];
 
           return MultiProvider(
             providers: [
@@ -70,9 +67,7 @@ class ChurchApp extends StatelessWidget {
                     name: churchName,
                     intro: churchIntro,
                     channelId: churchChannelId,
-                    slideImageOne: slideImageOne,
-                    slideImageTwo: slideImageTwo,
-                    slideImageThree: slideImageThree),
+                  ),
               ),
               ChangeNotifierProvider(
                 create: (context) => LatestVideos(latestVideos: latestVideos),

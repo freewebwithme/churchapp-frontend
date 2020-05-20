@@ -5,9 +5,6 @@ const String getChurch = """
       name
       intro
       channelId
-      slideImageOne
-      slideImageTwo
-      slideImageThree
       latestVideos {
         id
         title
