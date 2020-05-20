@@ -19,9 +19,9 @@ import './constants.dart';
 void main() async {
   await DotEnv().load('.env');
   SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //systemNavigationBarColor: Colors.green,
-    //statusBarColor: cPrimaryColor,
-  ));
+      //systemNavigationBarColor: Colors.green,
+      //statusBarColor: cPrimaryColor,
+      ));
   runApp(ChurchApp());
 }
 

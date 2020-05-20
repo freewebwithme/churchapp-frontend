@@ -13,26 +13,18 @@ class EmployeeCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: SizedBox(
-        height: 180,
+        height: 150,
         child: Stack(
           alignment: Alignment.centerLeft,
           children: <Widget>[
             Material(
-              elevation: 5,
-              borderRadius: BorderRadius.circular(20),
+              borderRadius: BorderRadius.circular(10),
               child: Container(
-                height: 166,
+                height: 140,
                 width: 300,
                 decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(20),
+                  borderRadius: BorderRadius.circular(10),
                   color: Colors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      offset: Offset(0, 8),
-                      blurRadius: 24,
-                      color: shadowColor,
-                    ),
-                  ],
                 ),
               ),
             ),
@@ -51,7 +43,7 @@ class EmployeeCard extends StatelessWidget {
             ),
             Positioned(
               left: 130,
-              top: 60,
+              top: 30,
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                 height: 136,

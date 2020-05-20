@@ -67,6 +67,12 @@ flutter:
     - images/dot.png
     - images/cross.png
     - images/icons/arrow-left.svg
+    - images/icons/cross.svg
+    - images/icons/church.svg
+    - images/icons/employee.svg
+    - images/icons/service-info.svg
+    - images/icons/contact.svg
+    - images/icons/news.svg
     - google_fonts/
     - .env
   # An image asset can refer to one or more resolution-specific "variants", see

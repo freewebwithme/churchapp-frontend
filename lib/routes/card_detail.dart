@@ -9,6 +9,9 @@ import 'package:stripe_payment/stripe_payment.dart';
 import '../widgets/rounded_button.dart';
 import '../widgets/custom_appbar.dart';
 
+// This class takes care of offering.
+// This a screen that make a payment finally.
+
 class CardDetailRoute extends StatefulWidget {
   CardDetailRoute({Key key}) : super(key: key);
   @override

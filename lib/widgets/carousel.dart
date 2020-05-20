@@ -56,3 +56,15 @@ class _CarouselForHomeState extends State<CarouselForHome> {
     );
   }
 }
+
+//CarouselSlider.builder(
+//  options: CarouselOptions(
+//    enlargeCenterPage: true,
+//    enableInfiniteScroll: false,
+//    viewportFraction: 0.8,
+//  ),
+//  itemCount: employees.length,
+//  itemBuilder: (context, index) {
+//    return employees[index];
+//  },
+//),

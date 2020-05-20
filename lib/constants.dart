@@ -31,6 +31,15 @@ const descriptionTextStyle = TextStyle(
   color: Colors.black54,
 );
 
+const introTitleTextStyle = TextStyle(
+  fontSize: 20,
+  color: titleTextColor,
+);
+
+const introDescTextStyle = TextStyle(
+  height: 1.5,
+);
+
 final appBarTextStyle = GoogleFonts.nanumMyeongjo(
   textStyle: TextStyle(
     color: titleTextColor,
