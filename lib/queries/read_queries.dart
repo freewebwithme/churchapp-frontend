@@ -5,6 +5,15 @@ const String getChurch = """
       name
       intro
       channelId
+      addressLineOne
+      addressLineTwo
+      email
+      phoneNumber
+      schedules {
+        serviceName
+        serviceTime
+        order
+      }
       latestVideos {
         id
         title

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -53,21 +55,33 @@ class ChurchApp extends StatelessWidget {
           }
 
           var churchResult = result.data["getChurch"];
+          var churchSchedules = result.data["getChurch"]["schedules"];
           List latestVideos = result.data["getChurch"]["latestVideos"];
           final String churchId = churchResult["id"];
           final String churchName = churchResult["name"];
           final String churchIntro = churchResult["intro"];
           final String churchChannelId = churchResult["channelId"];
+          final String churchAddressLineOne = churchResult["addressLineOne"];
+          final String churchAddressLineTwo = churchResult["addressLineTwo"];
+          final String churchEmail = churchResult["email"];
+          final String churchPhoneNumber = churchResult["phoneNumber"];
 
+          print(
+              "Printing from main for schedues: ${churchSchedules[0]}");
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(
                 create: (context) => Church(
-                    id: churchId,
-                    name: churchName,
-                    intro: churchIntro,
-                    channelId: churchChannelId,
-                  ),
+                  id: churchId,
+                  name: churchName,
+                  intro: churchIntro,
+                  channelId: churchChannelId,
+                  addressLineOne: churchAddressLineOne,
+                  addressLineTwo: churchAddressLineTwo,
+                  email: churchEmail,
+                  phoneNumber: churchPhoneNumber,
+                  schedules: churchSchedules,
+                ),
               ),
               ChangeNotifierProvider(
                 create: (context) => LatestVideos(latestVideos: latestVideos),
