@@ -12,6 +12,8 @@ import './routes/sermon_video_route.dart';
 import './routes/offering_route.dart';
 import './routes/main_page.dart';
 import './routes/card_detail.dart';
+import './routes/error_page.dart';
+import './routes/loading_page.dart';
 import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
@@ -44,13 +46,33 @@ class ChurchApp extends StatelessWidget {
         builder: (QueryResult result,
             {VoidCallback refetch, FetchMore fetchMore}) {
           if (result.hasException) {
-            return Text("데이터를 불러오는데 실패했습니다. 다시 시도하세요");
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                scaffoldBackgroundColor: defaultBgColor,
+                primaryColor: cPrimaryAccentColor,
+                textTheme: GoogleFonts.nanumMyeongjoTextTheme(
+                    Theme.of(context).textTheme),
+              ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => ErrorPage(),
+              },
+            );
           }
           if (result.loading) {
-            return Center(
-              child: CircularProgressIndicator(
-                semanticsLabel: "불러오는 중....",
+            return MaterialApp(
+              debugShowCheckedModeBanner: false,
+              theme: ThemeData(
+                scaffoldBackgroundColor: defaultBgColor,
+                primaryColor: cPrimaryAccentColor,
+                textTheme: GoogleFonts.nanumMyeongjoTextTheme(
+                    Theme.of(context).textTheme),
               ),
+              initialRoute: '/',
+              routes: {
+                '/': (context) => LoadingPage(),
+              },
             );
           }
 
@@ -66,8 +88,6 @@ class ChurchApp extends StatelessWidget {
           final String churchEmail = churchResult["email"];
           final String churchPhoneNumber = churchResult["phoneNumber"];
 
-          print(
-              "Printing from main for schedues: ${churchSchedules[0]}");
           return MultiProvider(
             providers: [
               ChangeNotifierProvider(

@@ -44,7 +44,11 @@ class _MainPageState extends State<MainPage> {
               // Height of the container is 45% of our total height
               height: size.height * 0.45,
               decoration: BoxDecoration(
-                color: cPrimaryColor,
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [cPrimaryColor, cPrimaryAccentColor],
+                ),
                 // backgroundBlendMode: BlendMode.overlay,
                 image: DecorationImage(
                   alignment: Alignment(1.5, 0.0),
