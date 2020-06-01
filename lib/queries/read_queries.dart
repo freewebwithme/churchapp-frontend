@@ -23,6 +23,17 @@ const String getChurch = """
         publishedAt
         channelTitle
       }
+      employees {
+        id
+        name
+        position
+        profileImage
+      }
+      news {
+        id
+        content
+        createdAt
+      }
     }
   }
 """;

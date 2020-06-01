@@ -36,7 +36,8 @@ class EmployeeCard extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   image: DecorationImage(
-                    image: AssetImage(image),
+                    fit: BoxFit.fill,
+                    image: NetworkImage(image),
                   ),
                 ),
               ),

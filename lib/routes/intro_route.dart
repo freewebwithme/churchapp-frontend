@@ -1,8 +1,4 @@
-import 'package:carousel_slider/carousel_slider.dart';
-import 'package:churchapp/widgets/section_title.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import '../widgets/employee_card.dart';
 import '../tabs/church_intro.dart';
 import '../tabs/employee_info.dart';
 import '../tabs/service_info.dart';

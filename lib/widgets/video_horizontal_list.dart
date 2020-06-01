@@ -20,7 +20,6 @@ class VideoHorizontalList extends StatelessWidget {
         shrinkWrap: true,
         itemCount: itemCount,
         itemBuilder: (context, index) {
-          print('printing item index: $index');
           final item = items[index];
           return VideoHorizontalCard(
             title: item['title'],

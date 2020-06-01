@@ -1,22 +1,14 @@
-
+import 'package:churchapp/model/news.dart';
 import 'package:churchapp/widgets/intro_title_widget.dart';
 import 'package:churchapp/widgets/news_card.dart';
 import 'package:flutter/widgets.dart';
-
-const List<String> news = [
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-  "이번주는 고난주간입니다. 이번주 4월 12일에는 부활주일입니다. 성찬식이 있습니다.",
-];
+import 'package:provider/provider.dart';
 
 class NewsTab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final news = Provider.of<News>(context);
+
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -26,9 +18,13 @@ class NewsTab extends StatelessWidget {
         ),
         Expanded(
           child: ListView.builder(
-            itemCount: news.length,
+            itemCount: news.churchNews.length,
             itemBuilder: (BuildContext context, int index) {
-              return NewsCard(content: news[index]);
+              return NewsCard(
+                id: news.churchNews[index]["id"],
+                content: news.churchNews[index]["content"],
+                date: news.churchNews[index]["createdAt"],
+              );
             },
           ),
         ),

@@ -1,5 +1,7 @@
 import 'package:churchapp/widgets/employee_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:churchapp/model/employee.dart';
 import '../widgets/intro_title_widget.dart';
 
 const List employees = [
@@ -12,7 +14,8 @@ const List employees = [
 class EmployeeInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    if (employees.length == 0 || employees == null) {
+    final employees = Provider.of<Employee>(context);
+    if (employees.churchEmployees.length == 0 || employees == null) {
       return Column(
         children: <Widget>[
           IntroTitle(
@@ -38,9 +41,13 @@ class EmployeeInfo extends StatelessWidget {
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.all(8),
-              itemCount: employees.length,
+              itemCount: employees.churchEmployees.length,
               itemBuilder: (BuildContext context, int index) {
-                return employees[index];
+                return EmployeeCard(
+                  image: employees.churchEmployees[index]["profileImage"],
+                  title: employees.churchEmployees[index]["position"],
+                  name: employees.churchEmployees[index]["name"],
+                );
               },
             ),
           ),

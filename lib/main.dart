@@ -6,18 +6,21 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
 import 'package:provider/provider.dart';
 import 'model/latest_videos.dart';
+import 'model/church.dart';
+import 'model/news.dart';
+import 'model/employee.dart';
 import './client_provider.dart';
 import './routes/video_detail_route.dart';
 import './routes/sermon_video_route.dart';
 import './routes/offering_route.dart';
 import './routes/main_page.dart';
 import './routes/card_detail.dart';
+import './routes/news_detail.dart';
 import './routes/error_page.dart';
 import './routes/loading_page.dart';
 import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
-import './model/church.dart';
 import './constants.dart';
 
 void main() async {
@@ -77,8 +80,10 @@ class ChurchApp extends StatelessWidget {
           }
 
           var churchResult = result.data["getChurch"];
-          var churchSchedules = result.data["getChurch"]["schedules"];
-          List latestVideos = result.data["getChurch"]["latestVideos"];
+          var churchSchedules = churchResult["schedules"];
+          List churchEmployees = churchResult["employees"];
+          List churchNews = churchResult["news"];
+          List latestVideos = churchResult["latestVideos"];
           final String churchId = churchResult["id"];
           final String churchName = churchResult["name"];
           final String churchIntro = churchResult["intro"];
@@ -104,6 +109,12 @@ class ChurchApp extends StatelessWidget {
                 ),
               ),
               ChangeNotifierProvider(
+                create: (context) => Employee(churchEmployees: churchEmployees),
+              ),
+              ChangeNotifierProvider(
+                create: (context) => News(churchNews: churchNews),
+              ),
+              ChangeNotifierProvider(
                 create: (context) => LatestVideos(latestVideos: latestVideos),
               ),
             ],
@@ -123,6 +134,7 @@ class ChurchApp extends StatelessWidget {
                 '/playlist-detail': (context) => PlaylistitemsQuery(),
                 '/offering': (context) => OfferingRoute(),
                 '/card-detail': (context) => CardDetailRoute(),
+                '/news-detail': (context) => NewsDetailRoute(),
               },
             ),
           );

@@ -1,12 +1,11 @@
 [TODO]
    - Work on /webhook/youtube controller, check if youtube send a new data to my endpoint.(DONE)
    - Work on Live streaming in backend(implement resolver and schema).
-   - Add News struct and News detail route
    - Improve playlitem list using FutureBuilder.
-   - Working on IntroRoute (DONE)
-   - Implement confirm payment in backend server.
-     - send payment id to backend
-     - User click confirm payment then server confirm payment.
+   - { Using One Signal}
+     1. create new project in one signal and firebase for each project.
+     2. install onesignal sdk for each flutter app(iOS and Android)
+     3. How can you charge?
 
   [Youtube API]
    - Use Pubsub to get notified when video uploads.(Upload video to my channel if it sends to backend server)(DONE)

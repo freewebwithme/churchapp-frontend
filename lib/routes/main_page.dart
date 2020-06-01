@@ -81,7 +81,7 @@ class _MainPageState extends State<MainPage> {
                     Container(
                       color: cPrimaryAccentColor,
                       height: 1,
-                      width: 150,
+                      width: 180,
                     ),
                     SizedBox(
                       height: 30,
