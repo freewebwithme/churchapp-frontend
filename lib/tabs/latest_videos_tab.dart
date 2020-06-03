@@ -4,17 +4,11 @@ import 'package:provider/provider.dart';
 import '../widgets/video_list.dart';
 
 class LatestVideosTab extends StatelessWidget {
-  LatestVideosTab({
-    Key key,
-    this.count,
-  }) : super(key: key);
-  final int count;
-
   Widget build(BuildContext context) {
     return Consumer<LatestVideos>(builder: (context, latestVideos, child) {
       return Padding(
         padding: const EdgeInsets.all(10.0),
-        child: VideoList(itemCount: count, items: latestVideos.latestVideos),
+        child: VideoList(itemCount: latestVideos.latestVideos.length, items: latestVideos.latestVideos),
       );
     });
   }

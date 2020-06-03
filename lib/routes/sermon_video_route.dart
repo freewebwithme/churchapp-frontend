@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../widgets/latest_videos_tab.dart';
+import '../tabs/latest_videos_tab.dart';
 import '../queries/playlist_query.dart';
 import '../constants.dart';
 
@@ -32,7 +32,7 @@ class SermonVideoRoute extends StatelessWidget {
                 ),
                 child: TabBarView(
                   children: <Widget>[
-                    LatestVideosTab(count: 25),
+                    LatestVideosTab(),
                     PlaylistQuery(),
                   ],
                 ),
