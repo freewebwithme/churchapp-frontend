@@ -22,6 +22,7 @@ import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import './queries/read_queries.dart' as queries;
 import './constants.dart';
+import 'package:onesignal_flutter/onesignal_flutter.dart';
 
 void main() async {
   await DotEnv().load('.env');
@@ -29,6 +30,20 @@ void main() async {
       //systemNavigationBarColor: Colors.green,
       //statusBarColor: cPrimaryColor,
       ));
+  //Remove this method to stop OneSignal Debugging
+  OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
+  var status = OneSignal.shared.getPermissionSubscriptionState();
+  print("Printing OneSignal: $status");
+  OneSignal.shared.init(DotEnv().env["ONESIGNAL_APP_ID"], iOSSettings: {
+    OSiOSSettings.autoPrompt: false,
+    OSiOSSettings.inAppLaunchUrl: false
+  });
+  OneSignal.shared
+      .setInFocusDisplayType(OSNotificationDisplayType.notification);
+
+  // The promptForPushNotificationsWithUserResponse function will show the iOS push notification prompt. We recommend removing the following code and instead using an In-App Message to prompt for notification permission
+  await OneSignal.shared
+      .promptUserForPushNotificationPermission(fallbackToSettings: true);
   runApp(ChurchApp());
 }
 

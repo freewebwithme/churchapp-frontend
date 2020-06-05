@@ -7,6 +7,17 @@ class VideoList extends StatelessWidget {
   final int itemCount;
   final List items;
 
+  Widget _buildRow(var item) {
+    return VideoCard(
+      title: item['title'],
+      description: item['description'],
+      date: item['publishedAt'],
+      thumbnailUrl: item['thumbnailUrl'],
+      videoId: item['videoId'],
+      channelTitle: item['channelTitle'],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     if (itemCount == 0 || items.length == 0) {
@@ -19,16 +30,7 @@ class VideoList extends StatelessWidget {
         itemCount: itemCount,
         padding: EdgeInsets.all(3.0),
         itemBuilder: (context, index) {
-          print('printing item index: $index');
-          final item = items[index];
-          return VideoCard(
-            title: item['title'],
-            description: item['description'],
-            date: item['publishedAt'],
-            thumbnailUrl: item['thumbnailUrl'],
-            videoId: item['videoId'],
-            channelTitle: item['channelTitle'],
-          );
+          return _buildRow(items[index]);
         },
       );
     }
