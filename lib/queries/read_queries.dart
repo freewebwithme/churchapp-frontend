@@ -66,3 +66,19 @@ query(\$channelId: String) {
   }
 }
 """;
+
+const String GET_LIVE_STREAMING = """
+query(\$channelId: String!) {
+  getLiveStreaming(channelId: \$channelId) {
+    id
+    items {
+      title
+      description
+      videoId
+      publishedAt
+      channelTitle
+      thumbnailUrl
+    }
+  }
+}
+""";

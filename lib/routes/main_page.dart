@@ -6,6 +6,7 @@ import 'intro_route.dart';
 import 'sermon_video_route.dart';
 import 'offering_route.dart';
 import 'news_route.dart';
+import 'live_streaming_route.dart';
 
 class MainPage extends StatefulWidget {
   MainPage({Key key}) : super(key: key);
@@ -28,6 +29,7 @@ class _MainPageState extends State<MainPage> {
     SermonVideoRoute(),
     OfferingRoute(),
     NewsRoute(),
+    LiveStreamingRoute(),
   ];
 
 
