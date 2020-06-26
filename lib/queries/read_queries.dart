@@ -9,6 +9,8 @@ const String getChurch = """
       addressLineTwo
       email
       phoneNumber
+      website
+      active
       schedules {
         serviceName
         serviceTime
@@ -39,8 +41,8 @@ const String getChurch = """
 """;
 
 const String PLAYLISTITEMS = """
-query(\$playlistId: String, \$nextPageToken: String) {
-  playlistItems(playlistId: \$playlistId, nextPageToken: \$nextPageToken) {
+query(\$churchId: String, \$playlistId: String, \$nextPageToken: String) {
+  playlistItems(churchId: \$churchId, playlistId: \$playlistId, nextPageToken: \$nextPageToken) {
     nextPageToken
     items {
       id

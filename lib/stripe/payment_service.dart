@@ -10,7 +10,6 @@ class StripeTransactionResponse {
 }
 
 class StripeService {
-  static String secret = DotEnv().env["STRIPE_SECRET"];
   static String publishableKey = DotEnv().env["STRIPE_PUBLISHABLE_KEY"];
   static String churchName = DotEnv().env["CHURCH_NAME"];
 

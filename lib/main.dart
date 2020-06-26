@@ -17,6 +17,7 @@ import './routes/main_page.dart';
 import './routes/card_detail.dart';
 import './routes/news_detail.dart';
 import './routes/error_page.dart';
+import './routes/app_not_active_page.dart';
 import './routes/loading_page.dart';
 import './queries/playlistitems_query.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -32,8 +33,8 @@ void main() async {
       ));
   //Remove this method to stop OneSignal Debugging
   OneSignal.shared.setLogLevel(OSLogLevel.verbose, OSLogLevel.none);
-  var status = OneSignal.shared.getPermissionSubscriptionState();
-  print("Printing OneSignal: $status");
+  //var status = OneSignal.shared.getPermissionSubscriptionState();
+  //print("Printing OneSignal: $status");
   OneSignal.shared.init(DotEnv().env["ONESIGNAL_APP_ID"], iOSSettings: {
     OSiOSSettings.autoPrompt: false,
     OSiOSSettings.inAppLaunchUrl: false
@@ -78,6 +79,7 @@ class ChurchApp extends StatelessWidget {
               },
             );
           }
+
           if (result.loading) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
@@ -95,64 +97,85 @@ class ChurchApp extends StatelessWidget {
           }
 
           var churchResult = result.data["getChurch"];
-          var churchSchedules = churchResult["schedules"];
-          List churchEmployees = churchResult["employees"];
-          List churchNews = churchResult["news"];
-          List latestVideos = churchResult["latestVideos"];
-          final String churchId = churchResult["id"];
-          final String churchName = churchResult["name"];
-          final String churchIntro = churchResult["intro"];
-          final String churchChannelId = churchResult["channelId"];
-          final String churchAddressLineOne = churchResult["addressLineOne"];
-          final String churchAddressLineTwo = churchResult["addressLineTwo"];
-          final String churchEmail = churchResult["email"];
-          final String churchPhoneNumber = churchResult["phoneNumber"];
+          var active = churchResult["active"];
 
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider(
-                create: (context) => Church(
-                  id: churchId,
-                  name: churchName,
-                  intro: churchIntro,
-                  channelId: churchChannelId,
-                  addressLineOne: churchAddressLineOne,
-                  addressLineTwo: churchAddressLineTwo,
-                  email: churchEmail,
-                  phoneNumber: churchPhoneNumber,
-                  schedules: churchSchedules,
+          if (active) {
+            var churchSchedules = churchResult["schedules"];
+            List churchEmployees = churchResult["employees"];
+            List churchNews = churchResult["news"];
+            List latestVideos = churchResult["latestVideos"];
+            final String churchId = churchResult["id"];
+            final String churchName = churchResult["name"];
+            final String churchIntro = churchResult["intro"];
+            final String churchChannelId = churchResult["channelId"];
+            final String churchAddressLineOne = churchResult["addressLineOne"];
+            final String churchAddressLineTwo = churchResult["addressLineTwo"];
+            final String churchEmail = churchResult["email"];
+            final String churchPhoneNumber = churchResult["phoneNumber"];
+
+            return MultiProvider(
+              providers: [
+                ChangeNotifierProvider(
+                  create: (context) => Church(
+                    id: churchId,
+                    name: churchName,
+                    intro: churchIntro,
+                    channelId: churchChannelId,
+                    addressLineOne: churchAddressLineOne,
+                    addressLineTwo: churchAddressLineTwo,
+                    email: churchEmail,
+                    phoneNumber: churchPhoneNumber,
+                    schedules: churchSchedules,
+                  ),
                 ),
+                ChangeNotifierProvider(
+                  create: (context) =>
+                      Employee(churchEmployees: churchEmployees),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => News(churchNews: churchNews),
+                ),
+                ChangeNotifierProvider(
+                  create: (context) => LatestVideos(latestVideos: latestVideos),
+                ),
+              ],
+              child: MaterialApp(
+                debugShowCheckedModeBanner: false,
+                theme: ThemeData(
+                  scaffoldBackgroundColor: defaultBgColor,
+                  primaryColor: cPrimaryAccentColor,
+                  textTheme: GoogleFonts.nanumMyeongjoTextTheme(
+                      Theme.of(context).textTheme),
+                ),
+                initialRoute: '/',
+                routes: {
+                  '/': (context) => MainPage(),
+                  '/video-detail': (context) => VideoDetailRoute(),
+                  '/sermons': (context) => SermonVideoRoute(),
+                  '/playlist-detail': (context) => PlaylistitemsQuery(),
+                  '/offering': (context) => OfferingRoute(),
+                  '/card-detail': (context) => CardDetailRoute(),
+                  '/news-detail': (context) => NewsDetailRoute(),
+                },
               ),
-              ChangeNotifierProvider(
-                create: (context) => Employee(churchEmployees: churchEmployees),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => News(churchNews: churchNews),
-              ),
-              ChangeNotifierProvider(
-                create: (context) => LatestVideos(latestVideos: latestVideos),
-              ),
-            ],
-            child: MaterialApp(
+            );
+          } else {
+            print("calling app not active");
+            return MaterialApp(
               debugShowCheckedModeBanner: false,
-              theme: ThemeData(
-                scaffoldBackgroundColor: defaultBgColor,
-                primaryColor: cPrimaryAccentColor,
-                textTheme: GoogleFonts.nanumMyeongjoTextTheme(
-                    Theme.of(context).textTheme),
-              ),
-              initialRoute: '/',
-              routes: {
-                '/': (context) => MainPage(),
-                '/video-detail': (context) => VideoDetailRoute(),
-                '/sermons': (context) => SermonVideoRoute(),
-                '/playlist-detail': (context) => PlaylistitemsQuery(),
-                '/offering': (context) => OfferingRoute(),
-                '/card-detail': (context) => CardDetailRoute(),
-                '/news-detail': (context) => NewsDetailRoute(),
+              routes: <String, WidgetBuilder>{
+                '/': (BuildContext context) {
+                  return Scaffold(
+                    body: Center(
+                      child: Text(
+                        "앱이 활성화 되어 있지 않습니다.",
+                      ),
+                    ),
+                  );
+                }
               },
-            ),
-          );
+            );
+          }
         },
       ),
     );

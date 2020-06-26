@@ -10,3 +10,7 @@
   [Youtube API]
    - Use Pubsub to get notified when video uploads.(Upload video to my channel if it sends to backend server)(DONE)
    - Display live streaming.
+
+
+- Add website field in Intro screen
+- Add App loding

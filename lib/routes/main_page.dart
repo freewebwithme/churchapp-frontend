@@ -1,5 +1,6 @@
 import 'package:churchapp/routes/home_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 
 import '../constants.dart';
 import 'intro_route.dart';
@@ -20,9 +21,10 @@ class _MainPageState extends State<MainPage> {
 
   void onMenuTapped(int index) {
     setState(() {
-        _selectedIndex = index;
+      _selectedIndex = index;
     });
   }
+
   final List<Widget> _screens = [
     HomeRoute(),
     IntroRoute(),
@@ -32,6 +34,7 @@ class _MainPageState extends State<MainPage> {
     LiveStreamingRoute(),
   ];
 
+  static String churchName = DotEnv().env["CHURCH_NAME"];
 
   @override
   Widget build(BuildContext context) {
@@ -70,7 +73,7 @@ class _MainPageState extends State<MainPage> {
                 padding:
                     EdgeInsets.only(left: 20, right: 20, top: 20, bottom: 10),
                 child: Text(
-                  "동부 장로 교회",
+                  churchName,
                   style: TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
                 ),
               ),

@@ -1,5 +1,7 @@
+import 'package:churchapp/model/church.dart';
 import 'package:flutter/material.dart';
 import 'package:graphql_flutter/graphql_flutter.dart';
+import 'package:provider/provider.dart';
 import '../widgets/video_list.dart';
 import '../model/playlist_info_argument.dart';
 import './read_queries.dart';
@@ -71,7 +73,7 @@ class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
 
   Widget build(BuildContext context) {
     final PlaylistInfoArgument args = ModalRoute.of(context).settings.arguments;
-
+    final church = Provider.of<Church>(context);
     return Scaffold(
       appBar: CustomAppBar(title: args.playlistTitle),
       body: Query(
@@ -79,6 +81,7 @@ class _PlaylistitemsQueryState extends State<PlaylistitemsQuery> {
             documentNode: gql(PLAYLISTITEMS),
             fetchPolicy: FetchPolicy.cacheFirst,
             variables: {
+              'churchId' :church.id,
               'playlistId': args.playlistId,
               'nextPageToken': nextPageToken,
             }),
